@@ -1,0 +1,373 @@
+---
+title: "RMT Batching"
+output: flexdashboard::flex_dashboard
+---
+<style>
+
+.navbar-inverse .navbar-nav>li>a {
+
+color:#000000;
+}
+
+
+.tab-content {
+
+	padding-top:30px;
+
+
+}
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:0px;
+	
+}
+
+.bluebox {
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+    padding:0px;
+    padding-top:20px;
+
+ background-color: white;
+
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.leaflet-container {
+ background-color: white;
+
+
+}
+
+
+.leaflet-popup-content-wrapper {
+ background: #eff4ef2e;
+ box-shadow:0 3px 10px rgba(0, 0, 0, 0);
+
+}
+
+
+.gmisc_table {
+
+ width:max-content;
+
+
+}
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+<!-- .navbar-fixed-top { -->
+
+<!-- visibility: hidden; -->
+
+<!-- } -->
+
+
+
+</style>
+
+Summary
+=====================================
+
+Column {data-width=10}
+-------------------------------------
+### Number of ballot paper counted: 
+
+Councillor
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+formattable(Councillor_bp_counted) 
+
+```
+
+Mayor
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+formattable(Mayor_bp_counted) 
+
+
+```  
+
+Ref & Poll
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+formattable(Ref_poll_bp_counted)
+
+```
+
+### Place holder for potential display
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+
+
+```  
+
+
+
+Column {data-width=6}
+-------------------------------------
+### Last updated: **`r Sys.time()`**  with Event Group: **`r event_group_ID`**
+
+<span class="demospan">% of Counts that matched excluding the manually approved  </span>
+<div class="expdiv">
+<table>
+<tr>
+<td>
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+gauge(round(nrow(Councillor_show %>% filter(abs(Councillor_show$Diff/Councillor_show$InitialCount) <0.01))/nrow(Councillor_show),2)*100
+, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(90, 100)
+  ,warning = c(40, 89)
+  ,danger = c(0,39)))
+
+```
+<span class="demospan">Councillor</span>
+
+</td>
+
+<td>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+gauge(round(nrow(Mayor_show %>% filter(abs(Mayor_show$Diff/Mayor_show$InitialCount) <0.01))/nrow(Mayor_show),2)*100
+, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(90, 100)
+  ,warning = c(40, 89)
+  ,danger = c(0,39)))
+
+
+#gauge(current_missing_LGA, min = 0, max = nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), symbol = '', gaugeSectors(
+#  success = c(0, 0.05*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))
+#  ,warning = c(0.05001*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), 0.2*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))
+#  ,danger = c(0.2001*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))))
+
+```
+<span class="demospan">Mayor</span>
+
+</td>
+</tr>
+</table>
+
+<span class="demospan">% of Counts that matched including the manually approved  </span>
+<table>
+
+<tr>
+<td>
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+gauge(round(nrow(Councillor_show %>% filter(RequireChecking == 'No'))/nrow(Councillor_show),2)*100
+, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(90, 100)
+  ,warning = c(40, 89)
+  ,danger = c(0,39)))
+
+```
+<span class="demospan">Councillor</span>
+
+</td>
+
+<td>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+gauge(round(nrow(Mayor_show %>% filter(RequireChecking == 'No'))/nrow(Mayor_show),2)*100
+, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(90, 100)
+  ,warning = c(40, 89)
+  ,danger = c(0,39)))
+
+
+#gauge(current_missing_LGA, min = 0, max = nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), symbol = '', gaugeSectors(
+#  success = c(0, 0.05*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))
+#  ,warning = c(0.05001*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), 0.2*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))
+#  ,danger = c(0.2001*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))))
+
+```
+<span class="demospan">Mayor</span>
+
+</td>
+
+</tr>
+</table>
+</div>
+
+    
+### Data sources and Rules
+<span class="demospan">
+First count data come from EMA and Check count data come from PRCC with the exception that: <br> <p></p>
+LG2103 at the moment does not have PRCC info
+Ref_poll check count decvote figure is missing at the moment.  <br> <p></p>
+
+
+
+Auto checking will put a 'No' in the Require Checking field allowing user to filter and focus on venues that require attention. <br><p></p>
+Below are the rules that is applied: <br><p></p>
+1: Diff within 1% of initial count  <br>
+2: Comment in EMA: accepted by ROSO
+
+</span>
+
+```{r}
+
+
+
+
+
+```
+
+
+
+
+Councillor
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Councillor
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+datatable(Councillor_show, 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                             searchCols = list(
+                              list(search = '["Yes"]')),
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```
+
+
+
+Mayor
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Mayor
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+datatable(Mayor_show, 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                            searchCols = list(
+                              list(search = '["Yes"]')),
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```
+
+
+Ref & Poll
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Referendum and Poll
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+datatable(Ref_poll_show, 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                 searchCols = list(
+                              list(search = '["Yes"]')),
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```

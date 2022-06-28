@@ -1,0 +1,167 @@
+---
+title: "RMT"
+output: 
+  # flexdashboard::flex_dashboard:
+  #   orientation: rows
+---
+
+<style type="text/css">
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+color: #000000;
+background: #ffffff;
+}
+
+.navbar-inverse {
+padding-top: 10px !important;
+background-color: #ffffff !important;
+border-color: #000000;
+font-size:  9pt !important;
+font-family: Helvetica;
+color: #000000;
+min-height: 100px !important;
+height: 100px !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+color: #000000;
+padding-top: 25px !important;
+}
+
+.row {
+width: 100% !important;
+}
+
+.main-container {
+max-width: 1800px;
+margin-left: auto;
+margin-right: auto;
+margin-left:-15px !important;
+font-family: Helvetica;
+}
+
+.fa-rho:before {
+    font-weight: 700;
+    content: '\03c1';
+}
+
+#f-drive-backup-summary {
+
+color : #ffffff;
+box-shadow: none;
+
+}
+
+a:hover {
+  background-color: white;
+}
+
+.value-box .icon i.fa.fa-camera{
+    
+    color: #ffffff; /*red*/
+  
+}
+
+a:hover {
+  display:none;
+}
+
+
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Column {data-width=3}
+-----------------------------------------------------------------------
+
+
+<!-- ### Pre poll - #potentially remove -->
+<!-- ```{r echo=FALSE} -->
+
+<!-- ## Put the description of the dashboard on the main tab -->
+<!-- flexdashboard::valueBox("PrePoll",  -->
+<!--                         icon  = "fa-random",  -->
+<!--                         href  = "10-RMT_index-01-PrePoll.html",  -->
+<!--                         color = "#8DD3C7") -->
+
+<!-- ``` -->
+
+
+### Initial Count - LG2101
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Initial Count", 
+                        icon  = "fa-user-plus", 
+                        href  ="10-RMT_index-01.5-Initial-Count.html", 
+                        color = "#D95F02")
+
+
+```
+
+
+<!-- Row {data-height=300} -->
+<!-- ----------------------------------------------------------------------- -->
+
+
+### Batching and data entry - LG2101
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Check Count", 
+                        icon  = "fa-envelope-open-o", 
+                        href  = "10-RMT_index-04-Check-count.html", 
+                        color = "#FB8072")
+
+```
+
+
+
+### Duty of care calls and EMA initial count completion times - LG2101
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("WHS Principles",
+                        icon = "fa-user-o",
+                        href = "10-RMT_index-05-WHS-Principles.html",
+                        color = "#80B1D3")
+
+```
+
+
+### Extra Pre-poll issue AoBP - LG2101
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("AoBP",
+                        icon = "fa-rho",
+                        href = "10-RMT_index-06-AoBP.html",
+                        color = "#6fbb56")
+
+```
+
+
+
+
+### F drive backup summary
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("F: drive",
+                        icon = "fa-camera",
+                        href = "10-RMT_index-07-FDrive.html",
+                        color = "#FFFFFF")
+
+```
+
+
+Column {data-width=5}
+-----------------------------------------------------------------------
+
+

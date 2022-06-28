@@ -1,0 +1,73 @@
+Events.EMS_Event
+Events.EMS_EventRollChannels
+Redistributions.EMS_VotingChannel
+Events.EMS_EventLocation
+Events.EMS_EventLocationStatus
+Events.EMS_EventRollChannels
+Events.EMS_EventRollChannels
+[Events].[EMS_EventLocationOpeningHours]
+[Resources].[EMS_Location] loc
+[Events].[EMS_EventRollArea] ea
+Events.EMS_Contest
+[dbo].[area]
+[Events].[EMS_EventLocation]
+[Resources].[EMS_Location] loc
+[Resources].[EMS_Address]
+Events.EMS_Event
+[Events].[EMS_EventLocationOpeningHours] evp
+[Resources].[EMS_Location]
+[Events].EMS_Contest ea
+[Events].[EMS_EventLocation] el
+[ElectionData].[Staging].[EMS_Address]
+STAFFING.ES_STAFF stf
+[ProcessingData].[dashboard].[staffing_distance]
+[ProcessingData].[dashboard].[staffing_geo_lookups]
+STAFFING.ES_STAFFPOSITIONS
+STAFFING.ES_STAFFCOMPLIANCE
+staffing.es_staffoapositionpreferences
+staffing.es_staffareapreferences
+staffing.es_stafflocationpreferenc
+prd2008.es_elector
+[ProcessingData].[dashboard].[staffing_already_hired]
+staffing.es_staffcompliance
+Resources.EMS_VW_EventRollChannelPotential
+[ProcessingData].[Base_data].[ProjectionsSydneyTownHall]
+Events.EMS_EventLocationOpeningHours evp
+PRD2008.ES_CONTEST
+contests
+contests_non_councillor
+contests_councillor
+PRD2008.ES_LOCATIONS
+PRD2008.ES_DECEXCUSEVOTE
+contests_mixed
+markoffs
+contests_councillor
+markoffs_non_councillor
+markoffs_councillor
+markoffs_all
+venuenames
+PRD2008.es_votestatushistory
+PRD2008.ES_DECEXCUSEVOTE A
+provisional_IDs
+PRD2008.ES_DECEXCUSEVOTE
+provisional
+condensed
+PRD2008.ES_LOCATIONS
+PRD2008.ES_VOTECOUNTINGPOINT
+PRD2008.ES_CONTEST
+PRD2008.ES_LOCATIONS
+prd2008.es_postalvoteapplication pv
+prd2008.es_postalvote
+prd2008.es_postalvoteapplication
+prd2008.es_decexcusevote
+prd2008.es_votestatushistory
+prd2008.es_decexcusevote DEV
+prd2008.es_contest
+prd2008.pm_party
+prd2008.es_contest
+
+
+
+ 
+
+

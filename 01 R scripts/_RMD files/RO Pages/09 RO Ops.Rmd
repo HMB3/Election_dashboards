@@ -1,0 +1,351 @@
+---
+title: "RO Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    # vertical_layout: scroll
+    # self_contained: false
+---
+
+
+<style> 
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 80px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table { 
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container {
+background: #0184a9;
+}
+
+
+
+</style>
+
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+
+```
+
+Staffing page
+==============================================================
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+<br>
+<br>
+Last update: 
+**`r Sys.time()`**
+Event ID: 
+**`r event_group_ID`**
+
+Data is **not** live. It will be updated every 2 hrs.
+
+```{r Staffing-Page-knit, out.width='100%'}
+
+#get the name of the html file that exists.
+Staffing_File<-list.files(path=RO_File_Subs, 
+                     #get the one with EOI in the name
+                     pattern= 'EOI',full.names = TRUE)
+
+#if it exists, output as an include url.
+
+if (length(Staffing_File)==1){
+  include_url(Staffing_File,height='100%')
+} else {
+  cat("No staffing page found")
+}
+
+
+```
+
+
+
+
+Pre-poll Votes
+==============================================================
+
+
+Row {data-height = 500}
+-----------------------------------------------------------------------
+<br>
+<br>
+Last update: 
+**`r Sys.time()`**
+Event ID: 
+**`r event_group_ID`**
+
+Data is **not** live. It will be updated twice daily.
+
+
+```{r Pre-Poll-Page-knit, out.width='100%'}
+
+#get the name of the html file that exists.
+PrePoll_File<-list.files(path=RO_File_Subs, 
+                     #get the one with EOI in the name
+                     pattern= 'Pre-Poll',full.names = TRUE)
+
+#if it exists, and pre-poll data is for right event, output as an include url.
+
+if (length(PrePoll_File)==1 &
+    event_group_ID %in% Pre_Poll_Data$EventID ){
+  include_url(PrePoll_File,height='100%')
+} else {
+  cat("No pre-poll data available yet")
+}
+
+
+```
+
+
+
+
+Dec Votes 
+==============================================================
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+<br>
+<br>
+Last update: 
+**`r Sys.time()`**
+Event ID: 
+**`r event_group_ID`**
+
+Data is **not** live. It will be updated twice daily.
+
+```{r DecVote-Page-knit, out.width='100%'}
+
+#get the name of the html file that exists.
+DecVote_File<-list.files(path=RO_File_Subs, 
+                     #get the one with EOI in the name
+                     pattern= 'DecVote',full.names = TRUE)
+
+#if it exists, output as an include url.
+
+if (length(DecVote_File)==1 &
+    event_group_ID %in% Dec_Vote_Data$EventID ){
+  include_url(DecVote_File,height='100%')
+} else {
+  cat("No Dec Vote data available yet")
+}
+
+
+```
+
+
+
+
+Ballot Track
+==============================================================
+
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+<br>
+<br>
+Last update: 
+**`r Sys.time()`**
+Event ID: 
+**`r event_group_ID`**
+
+Data is **not** live. It will be updated twice daily.
+
+
+
+
+```{r BallotTrack-Page-knit, out.width='100%'}
+
+#get the name of the html file that exists.
+BallotTrack_File <- list.files(path = RO_File_Subs, 
+                     #get the one with EOI in the name
+                     pattern = 'BallotTrack', full.names = TRUE)
+
+#if it exists, output as an include url.
+
+if (length(BallotTrack_File) == 1 &
+    event_group_ID %in% Ballot_Track_Data$EventID ) {
+  include_url(BallotTrack_File,height='100%')
+  
+} else {
+  cat("No ballot track data available yet")
+}
+
+
+```
+
+
+Initial Count
+==============================================================
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+<br>
+<br>
+Last update: 
+**`r Sys.time()`**
+Event ID: 
+**`r event_group_ID`**
+
+Data is **not** live. It will be updated twice daily.
+
+```{r InitialCount-Page-knit, out.width='100%'}
+
+#get the name of the html file that exists.
+InitialCount_File <- list.files(path = RO_File_Subs, 
+                     #get the one with EOI in the name
+                     pattern = 'InitialCount', full.names = TRUE)
+
+InitialEvent <- Councillor_initial %>%
+  mutate(EventID = str_sub(CONTESTID,start=1,end=6)) %>%
+  select(EventID) %>%
+  distinct()
+
+
+#if it exists, output as an include url.
+
+if (length(InitialCount_File) == 1 & event_group_ID %in% InitialEvent) {
+  include_url(InitialCount_File,height='100%')
+  
+} else {
+  cat("No Initial Count data available yet")
+}
+
+
+```
+
+
+
+Check Count
+==============================================================
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+<br>
+<br>
+Last update: 
+**`r Sys.time()`**
+Event ID: 
+**`r event_group_ID`**
+
+Data is **not** live. It will be updated twice daily.
+
+```{r CheckCount-Page-knit, out.width='100%'}
+
+#get the name of the html file that exists.
+CheckCount_File <- list.files(path = RO_File_Subs, 
+                     #get the one with EOI in the name
+                     pattern = 'CheckCount', full.names = TRUE)
+
+CheckEvent <- Councillor_check %>%
+  mutate(EventID = str_sub(CONTESTID,start=1,end=6)) %>%
+  select(EventID) %>%
+  distinct()
+#if it exists, output as an include url.
+
+if (length(CheckCount_File) == 1 &  event_group_ID %in% CheckEvent) {
+  include_url(CheckCount_File,height='100%')
+  
+} else {
+  cat("No Check Count data available yet")
+}
+
+
+```

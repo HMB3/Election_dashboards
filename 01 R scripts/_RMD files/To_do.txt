@@ -1,0 +1,17 @@
+Zoho to-do
+
+
+
+When the folder is setup for source and output files the following 
+AD group needs to be provided read/write access. Also maybe check 
+to make sure other people don’t randomly have access.
+
+Analytics_Data_RW
+
+
+Ok Dylan Bransby/Tanya Lee, I have a note in the requirements doc saying : 
+
+remove all numbers that don't start with +61
+
+Not sure if this is right, something may have been lost in translation....
+

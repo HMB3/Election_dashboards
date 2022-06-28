@@ -1,0 +1,21 @@
+
+output:
+  flexdashboard::flex_dashboard:
+    theme: lumen
+    logo: logo.svg
+  # include:
+  #      after_body: footer.html
+    css: styles.css
+    self_contained: true
+
+    navbar:
+      - {title: "Home", href: "00-Index.html", align: "left"}
+      - {title: "Venues", href: "01-Venues-and-procurement.html", align: "left"}
+      - {title: "Staffing", href: "02-Staffing.html", align: "left"}
+      - {title: "Pre-poll", href: "03-Early-Voting.html", align: "left"}
+      - {title: "DecVotes", href: "04-Declaration-Voting.html", align: "left"}
+      - {title: "Nominations", href: "05-Candidate-Nominations.html",  align: "left"}
+      - {title: "How To Vote", href: "06-How-To-Vote.html",  align: "left"} 
+      - {title: "BallotTrack", href: "08-Ballot-Track.html", align: "left"}
+      - {title: "Count Centre", href: "11-Count-centre.html",   align: "left"}
+      - {title: "Results Processing", href: "10-RMT.html",   align: "left"}

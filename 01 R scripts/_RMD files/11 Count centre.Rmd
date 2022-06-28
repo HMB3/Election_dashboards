@@ -1,0 +1,129 @@
+---
+title: "Count Centre"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    #vertical_layout: scroll
+    #self_contained: false
+---
+
+
+
+<style>
+
+
+.bluebox {
+ background-color: #ffffff;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 10px;
+    display: none;
+    
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+
+div.leaflet-control-attribution{
+	display:none;
+}
+
+div.leaflet-container {
+    background: #0184a9;
+}
+
+
+
+</style>
+
+
+```{r countcentre-Knit,out.width='100%'}
+
+## Knit the sub-page
+ind_pages        <- paste0(server_root_subpages, 
+                           list.files(path    = server_root_subpages, 
+                                      pattern = '11-Count-centre-Sub.html', full.names = FALSE))
+
+to_replace       <- paste0(server_root_subpages, '|', '.html')
+names(ind_pages) <- str_replace_all(ind_pages, to_replace, "")
+
+include_url(ind_pages, height = '100%')
+
+
+```
+
+
+

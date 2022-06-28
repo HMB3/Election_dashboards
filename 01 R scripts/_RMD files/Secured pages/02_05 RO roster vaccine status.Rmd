@@ -1,0 +1,170 @@
+---
+title: ""
+output: flexdashboard::flex_dashboard
+---
+
+<style>
+
+.navbar-inverse .navbar-nav>li>a {
+
+color:#000000;
+}
+
+
+.tab-content {
+
+	padding-top:30px;
+
+
+}
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:0px;
+	
+}
+
+.bluebox {
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+    padding:0px;
+    padding-top:20px;
+
+ background-color: white;
+
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.leaflet-container {
+ background-color: white;
+
+
+}
+
+
+.leaflet-popup-content-wrapper {
+ background: #eff4ef2e;
+ box-shadow:0 3px 10px rgba(0, 0, 0, 0);
+
+}
+
+
+.gmisc_table {
+
+ width:max-content;
+
+
+}
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+<!-- .navbar-fixed-top { -->
+
+<!-- visibility: hidden; -->
+
+<!-- } -->
+
+
+
+</style>
+
+RO vaccines
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Summary -Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+datatable(Roster_summary, 
+              rownames= FALSE, extensions = 'Buttons',
+              options = list(
+                            dom = 'Blfrtip',
+                            scrollY = '100%'
+
+                            ,pageLength = 10
+                             #lengthMenu = c(10, 25, 50)
+                            ),
+                              height = '480px',
+                              width='650px')
+
+```   
+
+

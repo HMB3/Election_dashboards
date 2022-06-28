@@ -1,0 +1,492 @@
+---
+title: 'How to Vote'
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    self_contained: false
+---
+
+
+<style>
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+height: 100%;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table {
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container {
+background: #0184a9;
+}
+
+
+</style>
+
+
+<!-- set global options here? -->
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, warning = FALSE, fig.fullwidth = TRUE)
+library(ggplot2)
+
+```
+
+
+
+Headlines
+==============================================================
+
+
+Column {data-width = 300}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates once a day at 8am.
+</br> Last update: **`r Sys.time()`**
+</br>
+</br>
+
+
+```{r}
+
+How_to_Vote_Headline
+
+```
+
+
+Column {data-width = 600}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+
+
+```{r, fig.width=10, fig.height=5, fig.align = 'center'}
+
+if(file_list >= 5) {
+  
+  htv_status_plot <- ggplot(data = Materials_status_date,
+                            mapping = aes(x = DateLodged, y = NumberOfItems, fill = Status)) +
+    
+    geom_bar(stat = "identity") +
+    labs(title = paste("Status of how to vote material by lodgement date (up to " , 
+                       format(Sys.Date(), format="%d-%b-%y"),")", "\n", sep = ""),
+         x = "\nDate lodged",
+         y = "Total number of items\n\n") +
+    
+    scale_x_date(labels = date_format("%a %d %b"), date_breaks = "1 day") +
+    scale_y_continuous(breaks = pretty_breaks()) +
+    scale_fill_brewer(palette="RdYlBu", name = "HTV Status", direction = -1) +
+    
+    ## Create the themes
+    theme(axis.title.x     = element_text(face   = "bold", colour = "black", size = 10),
+          axis.text.x      = element_text(angle  = 45, hjust = 1),
+          axis.title.y     = element_text(face   = "bold", 
+                                          colour = "black", 
+                                          size   = 10),
+          legend.title     = element_text(face   = "bold"),
+          
+          panel.background = element_rect(fill   = "azure2",
+                                          colour = "azure2",
+                                          size   = 0.5, linetype = "solid"),
+          panel.grid.major = element_line(size   = 0.5, linetype = 'solid',
+                                          colour = "white"), 
+          panel.grid.minor = element_blank())
+  
+  htv_status_plot
+  
+} else {
+  message('No data for graph, create message instead of plot')
+}
+
+```
+
+
+
+<!-- Counts of Material by Date -->
+<!-- ============================================================================== -->
+
+
+<!-- Column -->
+<!-- ------------------------------------- -->
+
+
+<!-- ```{r Markoffs-data_n_chart, fig.width=15, fig.height=10, fig.align='center'} -->
+
+<!-- ## -->
+<!-- if(nrow(KPI_HTV_group_date) > 3)  { -->
+
+<!--   HTV.cumul.linplot <- ggplot(KPI_HTV_group_date %>% -->
+<!--                                         mutate(LastLabel = ifelse(Date == max(Date), Lodg_cum_count, NA)),  -->
+<!--                                       aes(x      = Date,  -->
+<!--                                           y      = Lodg_cum_count, -->
+<!--                                           colour = Status)) + -->
+<!--     geom_line(size = 3) + -->
+<!--     facet_wrap(vars(Status), -->
+<!--                nrow = 3, ncol = 3, scales = 'free') + -->
+<!--     geom_point(size = 5, colour = 'grey') + -->
+
+<!--     theme_light(base_size = 16) + -->
+<!--     ylab("Material Count") + -->
+<!--     labs(title = "Cumulative How To Vote Material") + -->
+
+<!--     geom_text(aes(label = LastLabel, -->
+<!--                   vjust = 2), -->
+<!--               size = 5) + -->
+
+<!--     scale_x_date(date_labels = "%b-%d", date_breaks = "2 day") + -->
+
+<!--     theme(plot.margin      = unit(c(1, 1, 1, 1), "cm"), -->
+<!--           plot.title       = element_text(vjust  = 5,        size  = 25,     face  = "bold"), -->
+<!--           axis.text.x      = element_text(size   = 15,       angle = 45,     hjust = 1, vjust = 1), -->
+<!--           axis.title.x     = element_text(size   = 20,       face  = "bold", vjust = -5), -->
+<!--           axis.line        = element_line(colour = 'black',  size  = 0), -->
+<!--           strip.text       = element_text(size   = 15,       face  = 'bold', colour = 'black'), -->
+<!--           strip.background = element_rect(color  = "black",  fill  = "white"), -->
+<!--           legend.position  = 'none', -->
+
+<!--           axis.title.y  = element_text(size = 20,  face = "bold", vjust = 4), -->
+<!--           axis.text.y   = element_text(size = 15), -->
+<!--           plot.subtitle = element_text(size = 20, hjust = 0.5, face = "italic", color = "black"), -->
+<!--           plot.caption  = element_text(size = 20, hjust = 0.5, face = "italic", color = "black")) -->
+
+<!--   HTV.cumul.linplot -->
+
+<!-- } else { -->
+<!--   message('No data for graph, create message instead of plot') -->
+<!--   HTV.cumul.linplot <- 'Insufficient data for graph, try again later :]' -->
+<!--   HTV.cumul.linplot -->
+<!-- } -->
+
+<!-- ``` -->
+
+
+<!-- **This graph displays the total How To Vote (HTV) Material by status.** -->
+<!-- Status Definitions. -->
+<!-- **Accepted:** HTV Material Accepted -->
+<!-- **Withrdrawn:** HTV Material withdrawn by Candidate \ -->
+<!-- **Rejected:** HTV Material Rejected -->
+<!-- **Processing:** HTV Material the NSWEC processing team for review -->
+
+
+
+
+Counts of Material
+=====================================
+
+
+Column {data-width = 1000}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+
+
+```{r, fig.width=10, fig.height=6, fig.align = 'center'}
+
+if(file_list >= 5) {
+  htv.material.count  <- dash_bar_chart_xvar(df        = Total_pieces_material,
+                                             
+                                             # title     = '',
+                                             
+                                             paste("Total Pieces of How-to-Vote material by Type (up to " ,
+                                                   format(Sys.Date(), format = "%d-%b-%y"),")", "\n", sep = ""),
+                                             caption   = '',
+                                             
+                                             xvar      = 'Material Type',
+                                             yvar      = 'Total pieces of material',
+                                             ordervar  = 'Material Type',
+                                             
+                                             colours   =  c('Mayor'       = "#1B9E77", 
+                                                            'Councillor'  = "#1B9E77", 
+                                                            'Referendum'  = "#1B9E77", 
+                                                            'Poll'        = "#1B9E77",
+                                                            'Other'       = "#7570B3"), 
+                                             
+                                             tsize     = 15,
+                                             capt_size = 15,
+                                             xsize     = 15,
+                                             ysize     = 15,
+                                             ycol      = 'black',
+                                             lab_size  = 5,
+                                             leg_pos   = 'none',
+                                             axis_size = 1,
+                                             h_just    = -0.3,
+                                             
+                                             ymin      = 0,
+                                             ymax      = max(Total_pieces_material$`Total pieces of material`) +
+                                               (max(Total_pieces_material$`Total pieces of material`))*0.2,
+                                             ylab      = '',
+                                             xlab      = '', 
+                                             mar       = 1,
+                                             pan_mar   = 0.5)
+  
+  htv.material.count
+  
+} else {
+  message('No data for graph, create message instead of plot')
+  # print('Insufficient data for graph, try again later :]')
+}
+
+```
+
+
+
+
+```{r, fig.width=12, fig.align = 'center'}
+
+if(file_list >= 5) {
+  htv.councils.count  <- dash_bar_chart_yvar_samecol_lab_facet(df        = Total_pieces_material_council,
+                                                               title     = paste("Total Pieces of How-to-Vote material by Council"),
+                                                               caption   = '',
+                                                               
+                                                               xvar      = 'Council Name',
+                                                               yvar      = 'Total pieces of material',
+                                                               ordervar  = 'Total pieces of material',
+                                                               
+                                                               group_var = 'Status',
+                                                               colour    =  c("deepskyblue"), 
+                                                               
+                                                               tsize     = 20,
+                                                               capt_size = 15,
+                                                               xsize     = 15,
+                                                               ysize     = 15,
+                                                               ycol      = 'black',
+                                                               lab_size  = 5,
+                                                               leg_pos   = 'none',
+                                                               axis_size = 1,
+                                                               h_just    = -0.3,
+                                                               
+                                                               mar       = 1,
+                                                               pan_mar   = 0.5,
+                                                               
+                                                               ymin      = 0,
+                                                               ymax      = max(Total_pieces_material_council$`Total pieces of material`) +
+                                                                 (max(Total_pieces_material_council$`Total pieces of material`))*0.2,
+                                                               ylab      = '',
+                                                               xlab      = '', 
+                                                               wrap_scale = "free",
+                                                               facet_cols = 1,
+                                                               facet_rows = 1)
+  
+  htv.councils.count 
+  
+} else {
+  message('No data for graph, create message instead of plot ')
+}
+
+```
+
+
+
+Counts of Material by RPP
+=====================================
+
+
+### **EventGroupID: ** **`r event_group_ID`**
+
+```{r}
+
+if(file_list >= 5) {
+  
+  DT::datatable(Total_material_by_RPP_candidates %>% 
+                  rename(`Party Name` = PARTYNAME,
+                         `Abbreviated Party Name` = PARTYABBREVIATEDNAME), #%>% 
+                #filter(`Total pieces of material expected` > 0), 
+                
+                rownames   = FALSE, 
+                extensions = 'Buttons', 
+                filter     = 'top',
+                
+                options = list(
+                  pageLength = 50
+                  ,dom = 'tip'
+                  ,scrollY = '100%'
+                  ))
+  
+  
+} else {
+  message('No data for graph, create message instead of plot')
+}
+
+```
+
+
+
+
+
+Applications by Candidates
+=====================================
+
+
+Column {data-width = 800}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+
+```{r}
+
+## Arrange the table by the contests with shortfalls - i.e. positive numbers
+if(file_list >= 5) {
+  
+  DT::datatable(Candidates_material %>% arrange(-desc(`Total pieces of material`), 
+                                                desc(`Represent a Group`), `Last Name`), #Candidates_not_submitted, 
+                
+                rownames   = FALSE, 
+                extensions = 'Buttons', 
+                filter     = 'top',
+                
+                options = list(
+                  pageLength = 50
+                  ,dom = 'tip'
+                  ,scrollY = '100%'
+                  ))
+  
+  
+} else {
+  message('No data for table, create message instead of plot')
+  # print('Insufficient data for table, try again later :]')
+}
+
+```
+
+
+Column {data-width = 300}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+
+
+```{r, fig.width=7,  fig.height=4, fig.align = 'center'}
+
+
+if(file_list >= 5) {
+  htv.material.count  <- dash_bar_chart_xvar(df        = Total_material_by_RPP_count,
+
+                                             title     = paste("Total Candidate Submissions (up to " ,
+                                                               format(Sys.Date(), format = "%d-%b-%y"),")", "\n", sep = ""),
+                                             caption   = '',
+
+                                             xvar      = 'Candidates',
+                                             yvar      = 'Applications by candidates',
+                                             ordervar  = 'Applications by candidates',
+
+                                             colours   =  c('Submitted Candidates'    = "#1B9E77",
+                                                            'Un-submitted Candidates' = "#7570B3"),
+
+                                             tsize     = 10,
+                                             capt_size = 10,
+                                             xsize     = 10,
+                                             ysize     = 10,
+                                             ycol      = 'black',
+                                             lab_size  = 5,
+                                             leg_pos   = 'none',
+                                             axis_size = 1,
+                                             h_just    = -0.3,
+
+                                             ymin      = 0,
+                                             ymax      = max(Total_material_by_RPP_count$`Applications by candidates`) +
+                                               (max(Total_material_by_RPP_count$`Applications by candidates`))*0.2,
+                                             ylab      = '',
+                                             xlab      = '',
+                                             mar       = 1,
+                                             pan_mar   = 0.5)
+
+  htv.material.count
+
+} else {
+  message('No data for graph, create message instead of plot ')
+  # print('Insufficient data for table, try again later :]')
+}
+
+##
+message('All RMD code run for How to Vote data')
+
+
+```
+
+
+

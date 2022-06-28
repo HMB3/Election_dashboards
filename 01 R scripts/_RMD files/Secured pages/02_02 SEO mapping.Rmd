@@ -1,0 +1,131 @@
+---
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+
+---
+
+<style>
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:25px;
+}
+
+.bluebox {
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+    padding:0px;
+
+ background-color: white;
+
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.leaflet-container {
+ background-color: white;
+
+
+}
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+.navbar-fixed-top {
+
+visibility: hidden;
+
+}
+
+
+
+</style>
+
+
+
+Column {data-width=600}
+-----------------------------------------------------------------------
+
+### LG2001 SEO Map Last update: `r format(Sys.time(), '%d %B %Y, %X')`
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA, fig.height=2}
+
+Area_Summary_Map
+
+```
+
+

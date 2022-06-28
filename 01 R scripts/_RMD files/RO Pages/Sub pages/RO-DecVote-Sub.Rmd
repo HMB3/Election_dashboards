@@ -1,0 +1,176 @@
+---
+title: "DecVoting"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+    # self_contained: false
+---
+
+
+<style> 
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 80px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table { 
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container {
+background: #0184a9;
+}
+
+
+
+</style>
+
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+
+```
+
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+
+```{r Scrutiny-RO,out.height="100%"}
+
+if (exists("RO_DecVotes")){
+datatable(RO_DecVotes %>% 
+            arrange(-Total_markoffs)%>%
+            select(-Updated)%>%
+            
+            #setrejection rate to a proportion.
+            
+            mutate(Rejection_rate=
+                     percent(Rejection_rate))%>%
+            
+            ## Rename columns for better viewing.
+            rename(`Venue Type`             = Venue_type,
+                   `Enrolment Envelopes`    = Enrolment_envelopes,
+                   `NAMAV Envelopes`        = NAMAV_envelopes,
+                   `Total Markoffs`         = Total_markoffs,
+                   `Provisional Markoffs`   = Provisional_markoffs,
+                   `Accepted Envelopes`      = Accepted_markoffs,
+                   `Rejected Envelopes`      = Rejected_markoffs,
+                   `Unscrutinised Envelopes` = Unscrutinised,
+                   `Rejection Rate`         = Rejection_rate),
+          
+          ## Change rownames
+          rownames   = FALSE,
+          extensions = 'Buttons',
+          filter     = 'top',
+          caption    = htmltools::tags$caption(
+            
+            ## Move captions to the bottom
+            ## Does not seem possible to add line breaks to caption.
+            style = 'caption-side: bottom; text-align: center;',
+            
+            'Venue-level Declaration Vote scrutiny information.  
+                        Unscrutinised = Decvotes remaining to be scrutinised.
+                        Rejection Rate = Rejected Markoffs/Accepted Markoffs'),
+          
+          options = list(
+            pageLength = 10,
+            dom = 'tip'
+             ,scrollY = '100%'),
+          
+          height = '600px')%>%
+  formatStyle(columns=rep(1:length(RO_DecVotes)),fontSize="9pt")
+} else {
+  cat("No data available yet")
+}
+
+
+```

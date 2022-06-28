@@ -1,0 +1,175 @@
+---
+title: "Pre-Poll"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+    # self_contained: false
+---
+
+
+<style> 
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 80px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table { 
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container {
+background: #0184a9;
+}
+
+
+
+</style>
+
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+
+```
+
+
+
+Column {data-width = 500}
+-----------------------------------------------------------------------
+
+```{r Pre-Poll-RO,out.height="100%"}
+
+if (exists("RO_Markoffs")){
+RO_Markoff_Datatable<-datatable(RO_Markoffs %>%
+
+            #set proj_Prop to projection.
+
+            #mutate(Proj_Prop= percent(Proj_Prop, accuracy=0.1))%>%
+
+            rename(Council=ISSUINGAREA,
+                   Ward =CONTESTAREA,
+                   `Contest Type`=CONTESTTYPECODE,
+                   `Venue Name`=VENUENAME,
+                   `Pre-poll Markoffs`=Pre_Poll_Markoffs,
+                   `Pre-poll Projections`=Cum_Projection,
+                   `Proportion of Expected`=Proj_Prop),
+
+          rownames   = FALSE,
+          extensions = 'Buttons',
+          filter     = 'top',
+          caption    = htmltools::tags$caption(
+
+            ## move captions to the bottom
+            style = 'caption-side: bottom; text-align: center;',
+            "Pre-Poll Mark-offs per venue per contest. All numbers are cumulative totals.
+                        Proportion of Expected = Pre-poll markoffs/ Pre-poll Projections’ 
+                        (i.e. the proportion, 200% = double the expected
+                        amount of people have voted on that venue so far)"),
+
+          options = list(
+            pageLength = 15
+            ,dom = 'tip'
+            , scrollY = '100%'),
+          fillContainer = TRUE
+
+          , height = '600px'
+          )%>%
+  #set to format as percentage
+  formatPercentage(c('Proportion of Expected'),1)
+
+RO_Markoff_Datatable
+# p <- ggplot(mtcars, aes(wt, mpg))
+# p + geom_point()
+
+} else {
+  print("No data available yet")
+}
+
+```

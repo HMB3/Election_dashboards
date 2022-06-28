@@ -1,0 +1,75 @@
+
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:25px;
+}
+
+
+.navbar-inverse {
+  padding-top: 10px !important;
+  font-size:   9pt  !important;
+  min-height:  10px !important;
+  height:      10px !important;
+}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+
+div.main-wrapper {
+    position: relative;
+}
+
+
+div.leaflet-control-attribution{
+	display:none;
+}
+
+
+div.leaflet-container {
+    background: white;
+}
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+
+/* Whole document: */
+body{
+  font-family: Helvetica;
+  font-size: 10pt;
+}
+
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+  font-size: 10pt;
+}
+
+
+#LocationType {
+
+    padding-left: 20px;
+}
+
+<script>
+function refreshPage(){
+    window.location.reload();
+} 
+</script>

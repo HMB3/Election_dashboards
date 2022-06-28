@@ -1,0 +1,174 @@
+---
+title: "Home"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+<style type="text/css">
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+color: #000000;
+}
+
+.navbar-inverse {
+padding-top: 10px !important;
+background-color: #ffffff !important;
+border-color: #000000;
+font-size:  9pt !important;
+font-family: Helvetica;
+color: #000000;
+min-height: 100px !important;
+height: 100px !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+color: #000000;
+padding-top: 25px !important;
+}
+
+.row {
+width: 100% !important;
+}
+
+.main-container {
+max-width: 1800px;
+margin-left: auto;
+margin-right: auto;
+margin-left:-15px !important;
+font-family: Helvetica;
+color: #000000;
+}
+
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+
+### This dashboard tracks the hire status, projected voters and Procurement for all Venues
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Venue Procurement", 
+                        icon  = "fa-building", 
+                        href  = "01-Venues-and-procurement.html", 
+                        color = "#8DD3C7")
+
+```
+
+
+### This dashboard tracks the staff recruitment, training and language status for all RO Offices
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Staffing", 
+                        icon  = "fa-users", 
+                        href  ="02-Staffing.html", 
+                        color = "#D95F02")
+
+
+```
+
+
+### This dashboard tracks the Daily Pre-Poll attendance Votes per Venue
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Pre-poll Voting", 
+                        icon = "fa-user-check", 
+                        href = "03-Early-Voting.html", 
+                        color = "#BEBADA")
+
+```
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+
+### This dashboard tracks the daily declaration votes (attendance and Postal) per Venue
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Dec Vote Processing", 
+                        icon  = "fa-envelope-open-o", 
+                        href  = "04-Declaration-Voting.html", 
+                        color = "#FB8072")
+
+```
+
+
+
+### This dashboard tracks the daily nominations by Registered Political Parties
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Candidate Nominations", 
+                        icon = "fa-user-tie", 
+                        href = "05-Candidate-Nominations.html", 
+                        color = "#80B1D3")
+
+```
+
+
+
+### This dashboard tracks the daily processing of How-To-Vote material submitted by Registered Political Parties
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("How to Vote", 
+                        icon  = "fa-file-signature", 
+                        href  = "06-How-to-Vote.html", 
+                        color = "#FDB462")
+
+```
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+
+### This dashboard tracks the progress of Cartons of ballot Papers being scanned, from the printer to warehouse
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("BallotTrack", 
+                        icon = "fa-truck",
+                        href = "08-Ballot-Track.html", 
+                        color = "#FCCDE5")
+```
+
+
+### This dashboard tracks the processing of election results
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Count Centre Operations", 
+                        icon = "fa-warehouse",
+                        href = "11-Count-centre.html", 
+                        color = "#58D68D")
+```
+
+
+### This dashboard tracks the processing of election results
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Results Processing", 
+                        icon = "fa-calculator",
+                        href = "10-RMT.html", 
+                        color = "#D9D9D9")
+```
+
+
+
+

@@ -1,0 +1,141 @@
+---
+title: "Home"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+<style type="text/css">
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+color: #000000;
+}
+
+.navbar-inverse {
+padding-top: 10px !important;
+background-color: #ffffff !important;
+border-color: #000000;
+font-size:  9pt !important;
+font-family: Helvetica;
+color: #000000;
+min-height: 100px !important;
+height: 100px !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+color: #000000;
+padding-top: 25px !important;
+}
+
+.row {
+width: 100% !important;
+}
+
+.main-container {
+max-width: 1800px;
+margin-left: auto;
+margin-right: auto;
+margin-left:-15px !important;
+font-family: Helvetica;
+color: #000000;
+}
+
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+
+### This dashboard tracks the daily proofing of Ballot Papers submitted by Registered Political Parties
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("BallotTrack", 
+                        icon = "fa-truck",
+                        href = "08-Ballot-Track.html", 
+                        color = "#FCCDE5")
+```
+
+
+### This dashboard tracks the Daily Pre-Poll attendance Votes per Venue
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Pre-poll Voting", 
+                        icon = "fa-calendar", 
+                        href = "03-Early-Voting.html", 
+                        color = "#BEBADA")
+
+```
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+
+### This dashboard tracks the daily declaration votes (attendance and Postal) per Venue
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Dec Vote Processing", 
+                        icon  = "fa-envelope-open-o", 
+                        href  = "04-Declaration-Voting.html", 
+                        color = "#FB8072")
+
+```
+
+
+
+### This dashboard tracks the staff recruitment, training and language status for all RO Offices
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Staffing", 
+                        icon  = "fa-user-plus", 
+                        href  ="02-Staffing.html", 
+                        color = "#D95F02")
+
+
+```
+
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+### This dashboard tracks the progress of Cartons of Ballot Papers being scanned, from the printer (origin) to warehouse (destination)
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("BallotTrack", 
+                        icon = "fa-truck",
+                        href = "08-Ballot-Track.html", 
+                        color = "#FCCDE5")
+```
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+
+### This dashboard tracks the processing of election results
+```{r echo=FALSE}
+
+## Put the description of the dashboard on the main tab
+flexdashboard::valueBox("Results Processing", 
+                        icon = "fa-truck",
+                        href = "10-RMT.html", 
+                        color = "#D9D9D9")
+```
+
+
+
+

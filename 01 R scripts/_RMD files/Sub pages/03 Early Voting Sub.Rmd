@@ -1,0 +1,389 @@
+---
+title: "Pre-poll"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+ #   self_contained: false
+---
+
+
+<style>
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table {
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container {
+background: #0184a9;
+}
+
+
+
+</style>
+
+
+
+
+
+<!-- set global options here -->
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+source(paste0(root_dashboard,  '01 R scripts/Functions/dashboard_plotting_library.R'))
+
+```
+
+
+
+Headlines
+==============================================================
+
+
+Column {data-width=4}
+-----------------------------------------------------------------------
+
+### Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm. 
+
+```{r Prepoll Headlines, echo = FALSE}
+
+if (Pre_Poll_Open){
+PrePollHeadline
+} else {
+  print("No Pre-Polls Open")
+}
+
+```
+
+<strong>*Note:</strong> Most Over and Under Projected chosen from venues with Projections >100
+
+
+
+Column {data-width=5}
+-----------------------------------------------------------------------
+### Cumulative prepoll
+<!-- fig.height = 15, fig.width = 20,  -->
+```{r Total Votes By Day, echo = FALSE, fig.height=8,fig.width=10,warning = FALSE, message = FALSE}
+if (Pre_Poll_Open){
+# group_line_plot(df         = daily_cumulative_pre_poll,
+#                 title      = 'All Venues - Total Votes issued by day',
+#                 subtitle   = '',
+#                 caption    = '',
+# 
+#                 xvar       = 'Day',
+#                 yvar       = 'Total_cum_count',
+#                 group_var  = 'Status',
+# 
+#                 tsize      = 20,
+#                 capt_size  = 15,
+#                 xsize      = 20,
+#                 ysize      = 20,
+#                 ycol       = 'black',
+#                 line_size  = 2.5,
+#                 point_size = 3.5,
+# 
+#                 lab_size   = 3,
+#                 leg_size   = 20,
+#                 leg_pos    = 'bottom',
+#                 mar        = 1,
+# 
+# 
+#                 ylab       = 'Pre-poll Votes',
+#                 xlab       = 'Days of Pre-polling',
+#                 lab_angle  = 0)# %>% ggplotly(tooltip=c("x", "y","group"))
+  
+  
+  
+hchart(daily_cumulative_pre_poll %>%
+         rename(Date=VOTEPROCESSEDDATE), 'line',hcaes(x=Date, y=Total_cum_count, group = Status)) %>%
+  hc_title(
+    text = 'Cumulative total early votes taken',
+    style = list(
+      color = "black",
+      fontSize = "25px"
+    )) %>%
+  hc_yAxis(title = list(text='Pre-poll'),
+           min =0,
+    style = list(
+      color = "black",
+      fontFamily = "Griffy",
+      fontSize = "25px")) %>%
+  hc_tooltip(table = TRUE, sort = FALSE) %>%
+  hc_legend(enabled = F) %>%
+  hc_size(width = 1200,
+          height = 750) %>%
+  hc_tooltip(crosshairs=c(TRUE,TRUE)) %>%
+  hc_add_theme(hc_theme_google())
+
+  
+
+} else {
+  print("No Pre-Polls Open")
+}
+
+# ggplot(data=daily_cumulative_pre_poll,aes(x=Day,y=Total_cum_count))+
+#   geom_line(aes(group=Status))
+
+
+
+```
+
+
+Venue loads
+==============================================================
+
+
+Column {data-width = 800}
+-----------------------------------------------------------------------
+
+
+```{r Venue Voting Loads, fig.width=20, echo=FALSE, warning=FALSE, message=FALSE}
+
+# nrow(venue_total_load %>% distinct());nrow(venue_total_load)
+if (Pre_Poll_Open){
+datatable(venue_total_load %>% 
+            arrange(-`Voting Load Prop`) %>% 
+            select(Day, everything()), 
+            
+            
+            
+            
+            # mutate(`Voting Load Prop`=
+            #          percent(`Voting Load Prop`, accuracy=0.1)),
+            
+    
+          
+          rownames   = FALSE,
+          extensions = 'Buttons',
+          filter     = 'top',
+          caption    = htmltools::tags$caption(
+            
+            ## move captions to the bottom
+            style = 'caption-side: bottom; text-align: center;',
+            "Daily venue-level measure of resourcing. 
+                        Voting load proportion = Early Voting/Projected Vote  
+                        (i.e. the proportion, 200% = double the expected 
+                        amount of people showed up to that venue on that day)"),
+          
+          options = list(
+            pageLength = 15
+            ,dom = 'tip',
+            scrollY = '100%'),
+          
+          height = '600px')%>%
+    
+  
+  #set voting load to a percentage
+  formatPercentage(c('Voting Load Prop'),1)
+
+} else {
+  print("No Pre-Polls Open")
+}
+
+
+```
+
+
+
+
+Daily Totals 
+========================================================
+
+
+```{r Daily Totals, echo=FALSE, warning=FALSE, message=FALSE}
+## nrow(Markoffs_day_contests %>% distinct());nrow(Markoffs_day_contests)
+if (Pre_Poll_Open) {
+datatable(Markoff_days_contests_proj %>% 
+            left_join(Contest_Status,
+                      by = c("ISSUINGAREA" = "areacode",
+                             "CONTESTAREA" = "contestareacode",
+                             "CONTESTTYPECODE" = "contesttypecode")) %>%
+            filter(CONTESTSTATUSTYPECODE == "Contested") %>%
+            select(-CONTESTSTATUSTYPECODE) %>%
+            arrange(-PRE_POLL_MARKOFFS)%>%
+            
+            #reformat date for ease or reading
+            mutate(VOTEPROCESSEDDATE = as.Date(VOTEPROCESSEDDATE),
+                   VOTEPROCESSEDDATE = format(VOTEPROCESSEDDATE,
+                                              format = "%d-%b-%y"))%>%
+            
+            #rename columns for ease of reading
+            rename(Council               = ISSUINGAREA,
+                   Ward                  = CONTESTAREA,
+                   Venue                 = VENUENAME,
+                   `Election Type`       = CONTESTTYPECODE,
+                   `Date of Vote`        = VOTEPROCESSEDDATE,
+                   `Pre-poll Votes`         = PRE_POLL_MARKOFFS,
+                   `Projected Votes`     = Projection)%>%
+            select(Day, `Date of Vote`,everything()),
+          
+          rownames   = FALSE,
+          extensions = 'Buttons',
+          filter     = 'top',
+          caption    = htmltools::tags$caption(
+            
+            #move captions to the bottom
+            
+            style = 'caption-side: bottom; text-align: center;',
+            'Daily Pre-Poll Votes Per Venue'),
+          
+          options    = list(
+            pageLength = 15
+            , dom = 'tip',
+            scrollY = '100%'),
+          
+          height     = '600px')%>%
+  
+  #set voting load to a percentage
+  formatPercentage(c('Voting Load Prop'),1)
+} else {
+  print("No Pre-Polls Open")
+}
+
+  
+  
+```
+
+
+Cumulative Totals
+========================================================
+
+
+```{r cumulative Pre-Poll votes to date, echo=FALSE, warning=FALSE, message=FALSE}
+## nrow(Markoff_LGA_totals %>% distinct());nrow(Markoff_LGA_totals)
+if (Pre_Poll_Open){
+datatable(Markoff_LGA_totals %>% 
+            left_join(Contest_Status,
+                      by = c("LGA" = "areacode",
+                             "Contest_area" = "contestareacode",
+                             "Contest_type" = "contesttypecode")) %>%
+            filter(CONTESTSTATUSTYPECODE == "Contested") %>%
+            select(-CONTESTSTATUSTYPECODE) %>%
+            arrange(-`Pre-poll Votes`)%>%
+            
+            
+            ## Rename columns for ease of reading
+            rename(Council               = LGA,
+                   Ward                  = Contest_area,
+                   `Election Type`       = Contest_type),
+          
+          rownames   = FALSE,
+          extensions = 'Buttons',
+          filter     = 'top',
+          caption    = htmltools::tags$caption(
+            
+            ## Move captions to the bottom
+            style = 'caption-side: bottom; text-align: center;',
+            paste0('Cumulative Pre-Poll Vote Total Per Venue. All Votes and Projections are up to ',Last_Date,".")),
+          
+          options    = list(
+            pageLength = 15
+            , dom = 'tip',
+            scrollY= '100%'),
+          
+          height     = '600px')%>%
+  
+  #set voting load to a percentage
+  formatPercentage(c('Voting Load Prop'),1)
+
+} else {
+  print("No Pre-Polls Open")
+}
+
+
+```
+
+
+
+

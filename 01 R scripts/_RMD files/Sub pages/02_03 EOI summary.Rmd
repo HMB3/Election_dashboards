@@ -1,0 +1,341 @@
+---
+title: ""
+output: flexdashboard::flex_dashboard
+---
+<style>
+
+.navbar-inverse .navbar-nav>li>a {
+
+color:#000000;
+}
+
+
+.tab-content {
+
+	padding-top:30px;
+
+
+}
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:0px;
+	
+}
+
+.bluebox {
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+    padding:0px;
+    padding-top:20px;
+
+ background-color: white;
+
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.leaflet-container {
+ background-color: white;
+
+
+}
+
+
+.leaflet-popup-content-wrapper {
+ background: #eff4ef2e;
+ box-shadow:0 3px 10px rgba(0, 0, 0, 0);
+
+}
+
+
+.gmisc_table {
+
+ width:max-content;
+
+
+}
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+<!-- .navbar-fixed-top { -->
+
+<!-- visibility: hidden; -->
+
+<!-- } -->
+
+
+
+</style>
+
+EOI Summary
+=====================================
+
+Column {data-width=30}
+-------------------------------------
+### -Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+Summary_status_table
+txt <- c('Total = OPEN + OFFERED + EMPLOYED'
+         ,'Completion rate = EMPLOYED/Total'
+         ,'Number of OPEN positions is dependent on RO opening up the position in the system')
+cat(txt, sep="\n")
+
+```   
+
+
+Column {data-width=18}
+-------------------------------------
+### New Applicants that had no past election experiences amongest applications and hired groups
+
+<div class="expdiv">
+<table>
+<tr>
+<td>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+gauge(gauge_exp, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+<span class="demospan">Applicants</span>
+</td>
+<td>
+```{r}
+gauge(gauge_exp_hired, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+<span class="demospan">Hired</span>
+</td>
+</tr>
+</table>
+</div>
+
+    
+### Position by Fill Status - Election Day
+<div class="expdiv">
+<table>
+<tr>
+<td>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+gauge(gauge_ed_hired, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+<span class="demospan">Hired</span>
+</td>
+<td>
+```{r}
+gauge(gauge_ed_trained, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+<span class="demospan">Trained</span>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+Column {data-width=30}
+-------------------------------------
+### Number of Aboriginal and Torres Straight Islander Employees that are hired
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+gauge(gauge_ATSI_hired, min = 0, max = nrow(ATSI), symbol = '', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
+```
+
+
+### Age distribution among applicants
+```{r}
+
+   if (nrow(age_dist) >0) {
+   
+      hchart(agehist,  color = "lightblue", name = "Age bracket of applicants")     
+
+   }
+
+```
+
+Position Summaries 
+=====================================
+
+Column {data-width=30}
+-------------------------------------
+### by RO
+```{r}
+
+datatable(RO_Summary,
+           extensions = 'Buttons',
+                  rownames = FALSE,
+                  options = list(dom = 'Bfrtip'
+                                ,scrollY = '100%'
+
+                             #,pageLength = 10
+                             #,lengthMenu = c(10, 25, 50)
+                             ),
+                              height = '480px',
+                              width='650px')
+   if (nrow(age_dist) >0) {
+   
+     hchart(agehist)
+   }
+```
+
+Column {data-width=35}
+-------------------------------------
+### by LGA
+```{r}
+
+datatable(LGA_Summary,
+           extensions = 'Buttons',
+                  rownames = FALSE,
+                  options = list(dom = 'Bfrtip'
+                                ,scrollY = '100%'
+
+                             #,pageLength = 10
+                             #,lengthMenu = c(10, 25, 50)
+                             ),
+                              height = '480px',
+                              width='650px')
+   if (nrow(age_dist) >0) {
+   
+     hchart(agehist)
+   }
+```
+
+
+
+
+
+Training Status and Languages
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Applicant Training Status Election Day
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+training_ed_stack
+
+
+```
+
+### Applicant Training Status Non-Election Day
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+training_else_stack
+
+```
+
+Column {data-width=3}
+-------------------------------------
+### Applicant Language Proficiency
+```{r, fig.width=19, fig.height=11, echo=FALSE, warning=FALSE, message=FALSE}
+if (nrow(table_lan) > 0) {
+  
+
+    hchart(table_lan, "column", hcaes(x = "SECONDLANGUAGE", y = "Count", group = "Status")) %>%
+    hc_plotOptions(column = list(stacking = "normal"))
+}
+  
+
+```
+
+
+Election day Venue level numbers
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### RO office - Venue hiring status
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+datatable(Opened_Positions %>% ungroup() %>% dplyr::select(RO_Office, everything(),-StreetAddressID, -EventID), 
+              rownames= FALSE, extensions = 'Buttons',
+              options = list(
+                            dom = 'Blfrtip'
+                            ,scrollY = '100%'
+
+                            ,pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+```

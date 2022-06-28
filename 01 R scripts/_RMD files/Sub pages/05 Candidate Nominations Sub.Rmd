@@ -1,0 +1,537 @@
+---
+title: 'Nominations'
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+    self_contained: false
+---
+
+
+<style>
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table {
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container {
+background: #0184a9;
+}
+
+
+</style>
+
+
+<!-- set global options here? -->
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, warning = FALSE, fig.fullwidth = TRUE)
+library(ggplot2)
+# source('./01 R scripts/Functions/dashboard_plotting_library.R')
+
+```
+
+
+
+
+Headlines
+==============================================================
+
+
+Column {data-width = 300}
+-----------------------------------------------------------------------
+
+
+### Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+Data is **not** updated in real time. Updates occur every hour between 8am and 6pm. 
+
+
+```{r Headline Table}
+
+NomsHeadlineTable_flex 
+
+```
+
+
+Column {data-width = 700}
+-----------------------------------------------------------------------
+
+
+```{r, fig.width=10, fig.height=6, fig.align = 'center'}
+if(nrow(council_mayor_count_date) > 1 & 'Date' %in% names(council_mayor_count_date)) {
+  
+  message('Creating graph')
+  
+  ## Create data ends 
+  d_ends <- council_mayor_count_date %>% 
+    group_by(CONTESTTYPECODE) %>% 
+    top_n(1, Date) %>% 
+    pull(Noms_cum_count)
+  
+  ## Create ggplot
+  lodged.nom.date <- council_mayor_count_date %>% 
+    ggplot(aes(Date, Noms_cum_count, color = CONTESTTYPECODE)) +
+    geom_line(size = 2, alpha = .8) +
+    theme_light(base_size = 16) +
+    scale_y_continuous(sec.axis = sec_axis(~ ., breaks = d_ends)) +
+    
+    ##
+    labs(title = paste("Lodged Nominations by Date (up to " , 
+                       format(Sys.Date(), format = "%d-%b-%y"),")", "\n", sep = ""),
+         x = '', #"\nDate lodged",
+         y = "Total Nominations\n\n") +  
+    
+    ## Create the themes
+    theme_light(base_size = 16) +
+    
+    theme(axis.title.x = element_text(face   = "bold", colour = "black", size = 10),
+          axis.text.x  = element_text(size   = 15, angle = 45, hjust = 1, vjust = 0.5),
+          axis.text.y  = element_text(size   = 15),
+          axis.title.y = element_text(face   = "bold", 
+                                      colour = "black", 
+                                      size   = 15),
+          legend.position  = 'bottom',
+          legend.title     = element_blank(),
+          
+          panel.grid.major = element_line(size   = 0.5, linetype = 'solid',
+                                          colour = "grey"), 
+          panel.grid.minor = element_line(size   = 0.5, linetype = 'solid',
+                                          colour = "grey"))
+  
+  lodged.nom.date
+  
+} else {
+  message('Incoming Nominations are being processed')
+}
+
+
+```
+
+
+
+```{r, fig.width=10, fig.align = 'center'}
+## Council nominations by type
+if(nrow(overall_incomplete_nominations) > 0) {
+  total.noms.count  <- dash_bar_chart_xvar_facet(df        = overall_incomplete_nominations,
+                                                 
+                                                 title     = '',
+                                                 caption   = '',
+                                                 
+                                                 xvar      = 'Status',
+                                                 yvar      = 'Nominations',
+                                                 group_var = 'Type',
+                                                 colours   =  c('Incoming'   = "#7570B3", 
+                                                                'Processing' = "#1B9E77",  
+                                                                'Pending'    = "#1B9E77", 
+                                                                'Rejected'   = "#1B9E77", 
+                                                                'Withdrawn'  = "#1B9E77",             
+                                                                'Accepted'   = "#1B9E77"), 
+                                                 
+                                                 tsize     = 15,
+                                                 capt_size = 15,
+                                                 xsize     = 15,
+                                                 ysize     = 15,
+                                                 ycol      = 'black',
+                                                 lab_size  = 5,
+                                                 leg_pos   = 'none',
+                                                 axis_size = 1,
+                                                 h_just    = -0.3,
+                                                 
+                                                 ymin      = 0,
+                                                 ymax      = max(overall_incomplete_nominations$Nominations) +
+                                                   (max(overall_incomplete_nominations$Nominations))*0.2,
+                                                 ylab      = '',
+                                                 xlab      = '', 
+                                                 mar       = 0.5,
+                                                 pan_mar   = 0.5,
+                                                 wrap_scale = "free",
+                                                 facet_cols = 1,
+                                                 facet_rows = 1)
+  
+  total.noms.count 
+  
+} else {
+  print('Insufficient lodged Nominations, try again later :]')
+}
+
+```
+
+
+
+
+
+Nomination count by RPP
+=====================================
+
+
+Column
+-------------------------------------
+
+
+
+Column
+-------------------------------------
+
+
+### **Count of approved nominations by Registered Political Parties**
+
+```{r}
+
+if(nrow(Party_Nominations) > 0) {
+  
+  datatable(Party_Nominations, 
+            
+            rownames     = FALSE, 
+            extensions   = 'Buttons', 
+            filter       = 'top',
+            
+            options      = list(
+              pageLength = 50, 
+              dom        = 'tip'))
+  
+} else {
+  print('Insufficient Party Nominations, try again later :]')
+}
+
+```
+
+
+Column
+-------------------------------------
+
+
+
+
+Nomination count by Status
+=====================================
+
+
+Column {data-width = 1}
+-----------------------------------------------------------------------
+
+
+Column {data-width = 8}
+-----------------------------------------------------------------------
+
+
+```{r, fig.width=15, fig.height=6, fig.align = 'center'}
+if(nrow(combined_status_counts) > 0) {
+  overall.noms.count <- dash_bar_chart_xvar_facet(df        = combined_status_counts,
+                                                  
+                                                  title     = '',
+                                                  caption   = '',
+                                                  
+                                                  xvar      = 'Status',
+                                                  yvar      = 'Nominations',
+                                                  group_var = 'Type',
+                                                  colours   =  c('Incoming'   = "#7570B3", 
+                                                                 'Processing' = "#A6761D",  
+                                                                 'Pending'    = "#666666", 
+                                                                 'Rejected'   = "#E7298A", 
+                                                                 'Withdrawn'  = "#D95F02",             
+                                                                 'Accepted'   = "#1B9E77"), 
+                                                  
+                                                  tsize     = 15,
+                                                  capt_size = 10,
+                                                  xsize     = 12,
+                                                  ysize     = 12,
+                                                  ycol      = 'black',
+                                                  lab_size  = 5,
+                                                  leg_pos   = 'none',
+                                                  axis_size = 1,
+                                                  h_just    = -0.3,
+                                                  
+                                                  ymin      = 0,
+                                                  ymax      = max(combined_status_counts$Nominations) +
+                                                    (max(combined_status_counts$Nominations))*0.2,
+                                                  ylab      = 'Total Nominations',
+                                                  xlab      = '', 
+                                                  mar       = 0.5,
+                                                  pan_mar   = 0.5,
+                                                  wrap_scale = "free",
+                                                  facet_cols = 2,
+                                                  facet_rows = 2)
+  
+  overall.noms.count
+  
+} else {
+  print('Insuficient lodged Nominations, try again later :]')
+}
+
+
+```
+
+
+**This graph displays the total nomination by status for councillor, mayor, groups and an overall total of both mayor and councillor.** 
+Status Definitions.
+**Accepted:**   Nomination Accepted
+**Withrdrawn:** Nomination withdrawn by Candidate \
+**Rejected:**   Nomination Rejected
+**Pending:**    Nomination Currently awaiting fixes from the candidate
+**Processing:** With the NSWEC processing team for review 
+**Incoming:**   Nomination has been created by not yet completed or paid for
+
+
+
+Column {data-width = 1}
+-----------------------------------------------------------------------
+
+
+
+Confirmed Councillor Nominations by LGA
+=====================================
+
+
+Column {data-width = 800}
+-----------------------------------------------------------------------
+
+### **This table shows the total number of Accepted Councillor nominations by Local Government Area.**
+
+
+```{r}
+if(nrow(Confirmed_Council_Noms) > 0) {
+  
+  ## Arrange the table by the contests with shortfalls - i.e. positive numbers
+  datatable(Confirmed_Council_Noms %>% filter(`Contest Type` == "Councillor") %>% arrange(-Shortfall), 
+            
+            rownames   = FALSE, 
+            extensions = 'Buttons', 
+            filter     = 'top',
+            
+            options = list(
+              pageLength = 50, dom = 'tip'))
+  
+} else {
+  print('Insuficient lodged Nominations, try again later :]')
+}
+
+
+```
+
+
+
+Column {data-width = 300}
+-----------------------------------------------------------------------
+
+
+
+```{r, fig.width=12, fig.height = 30, fig.align = 'center'}
+# if(class(event_group_ID) != "NULL" & unique(noms_extract$DATEOFLODGEMENT) !="") {
+
+if(nrow(Confirmed_Council_Noms) > 0) {
+  
+  councillor.councils.count  <- dash_bar_chart_yvar_samecol_facet(df = Confirmed_Council_Noms %>% 
+                                                                    filter(`Contest Type` == "Councillor"),
+                                                                  title     = '',
+                                                                  caption   = '',
+                                                                  
+                                                                  xvar      = 'Contest Area',
+                                                                  yvar      = 'Accepted Nominations',
+                                                                  ordervar  = 'Accepted Nominations',
+                                                                  
+                                                                  group_var = 'Contest Type',
+                                                                  colour    =  c("deepskyblue"), 
+                                                                  
+                                                                  tsize     = 15,
+                                                                  capt_size = 10,
+                                                                  xsize     = 12,
+                                                                  ysize     = 7,
+                                                                  ycol      = 'black',
+                                                                  lab_size  = 5,
+                                                                  leg_pos   = 'none',
+                                                                  axis_size = 1,
+                                                                  h_just    = -0.3,
+                                                                  mar       = 0.5,
+                                                                  pan_mar   = 0.5,
+                                                                  
+                                                                  ymin      = 0,
+                                                                  ylab      = 'Total Accepted Nominations',
+                                                                  xlab      = '',
+                                                                  wrap_scale = "free",
+                                                                  facet_cols = 1,
+                                                                  facet_rows = 1)
+  
+  
+  councillor.councils.count 
+  
+} else {
+  print('No Confirmed Council Nominations, try again later :]')
+}
+
+
+
+```
+
+
+
+Confirmed Mayoral Nominations by LGA
+=====================================
+
+
+Column {data-width = 800}
+-----------------------------------------------------------------------
+
+### **This table shows the total number of Accepted Mayoral nominations by Local Government Area.**
+
+
+```{r}
+if(nrow(Confirmed_Council_Noms) > 0) {
+  
+  ## Arrange the table by the contests with shortfalls - i.e. positive numbers
+  datatable(Confirmed_Council_Noms %>% filter(`Contest Type` == "Mayor") %>% arrange(-Shortfall), 
+            
+            rownames   = FALSE, 
+            extensions = 'Buttons', 
+            filter     = 'top',
+            
+            options = list(
+              pageLength = 50, dom = 'tip'),
+            height = '600px')
+  
+} else {
+  print('No Confirmed Council Nominations, try again later :]')
+}
+
+```
+
+
+
+Column {data-width = 300}
+-----------------------------------------------------------------------
+
+
+
+```{r, fig.width=12, fig.height=20,fig.align = 'center'}
+if(nrow(Confirmed_Council_Noms) > 3) {
+  
+  mayor.councils.count  <- dash_bar_chart_yvar_samecol_facet(df = Confirmed_Council_Noms %>% 
+                                                               filter(`Contest Type` == "Mayor"),
+                                                             title     = '',
+                                                             caption   = '',
+                                                             
+                                                             xvar      = 'Contest Area',
+                                                             yvar      = 'Accepted Nominations',
+                                                             ordervar  = 'Accepted Nominations',
+                                                             
+                                                             group_var = 'Contest Type',
+                                                             colour    =  c("deepskyblue"), 
+                                                             
+                                                             tsize     = 15,
+                                                             capt_size = 10,
+                                                             xsize     = 12,
+                                                             ysize     = 12,
+                                                             ycol      = 'black',
+                                                             lab_size  = 5,
+                                                             leg_pos   = 'none',
+                                                             axis_size = 1,
+                                                             h_just    = -0.3,
+                                                             mar       = 0.5,
+                                                             pan_mar   = 0.5,
+                                                             
+                                                             ymin      = 0,
+                                                             ylab      = 'Total Accepted Nominations',
+                                                             xlab      = '',
+                                                             wrap_scale = "free",
+                                                             facet_cols = 1,
+                                                             facet_rows = 1)
+  
+  mayor.councils.count 
+  
+} else {
+  print('No Confirmed Mayor Nominations, try again later :]')
+}
+
+
+message('All Rmd code run for How to Vote data')
+
+```
+

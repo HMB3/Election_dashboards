@@ -1,0 +1,285 @@
+---
+title: "RMT Pre Poll"
+output: flexdashboard::flex_dashboard
+---
+<style>
+
+.navbar-inverse .navbar-nav>li>a {
+
+color:#000000;
+}
+
+
+.tab-content {
+
+	padding-top:30px;
+
+
+}
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:0px;
+	
+}
+
+.bluebox {
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+    padding:0px;
+    padding-top:20px;
+
+ background-color: white;
+
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.leaflet-container {
+ background-color: white;
+
+
+}
+
+
+.leaflet-popup-content-wrapper {
+ background: #eff4ef2e;
+ box-shadow:0 3px 10px rgba(0, 0, 0, 0);
+
+}
+
+
+.gmisc_table {
+
+ width:max-content;
+
+
+}
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+<!-- .navbar-fixed-top { -->
+
+<!-- visibility: hidden; -->
+
+<!-- } -->
+
+
+
+</style>
+
+Current Day
+=====================================
+
+Column {data-width=10}
+-------------------------------------
+### Pre Poll and AoBP. Last updated: **`r Sys.time()`**
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+datatable(PrePoll_reconcilliation_allocations %>% ungroup() %>% filter(ReconciliationDate == max(ReconciliationDate)) %>% dplyr::select(-LocationID, -`Pre-poll`, -DecVote, -Spoilt, -Discarded,-ContestID,LocationType,-MarkOffDay, -Quantity, - LocationType, -AreaCode), 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```   
+
+
+Column {data-width=5}
+-------------------------------------
+### Current Day AoBP Statuses
+
+<div class="expdiv">
+<table>
+<tr>
+<td>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+gauge(current_missing_PP, min = 0, max = nrow(Total_Allocations %>% ungroup() %>% distinct(LocationID)), symbol = '', gaugeSectors(
+  success = c(0, 0.05*nrow(Total_Allocations %>% ungroup() %>% distinct(LocationID)))
+  ,warning = c(0.05001*nrow(Total_Allocations %>% ungroup() %>% distinct(LocationID)), 0.20*nrow(Total_Allocations %>% ungroup() %>% distinct(LocationID)))
+  ,danger = c(0.2001*nrow(Total_Allocations %>% ungroup() %>% distinct(LocationID)), nrow(Total_Allocations %>% ungroup() %>% distinct(LocationID)))))
+
+```
+<span class="demospan">AoBP not yet completed - Pre polling places</span>
+</td>
+
+<td>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+gauge(current_missing_LGA, min = 0, max = nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), symbol = '', gaugeSectors(
+  success = c(0, 0.05*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))
+  ,warning = c(0.05001*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), 0.2*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))
+  ,danger = c(0.2001*nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)), nrow(Total_Allocations %>% ungroup() %>% distinct(AreaCode)))))
+
+```
+<span class="demospan">AoBP not yet completed - LGA</span>
+</td>
+</tr>
+</table>
+</div>
+
+    
+### Pre poll markoff
+
+```{r}
+
+
+hchart(Daily_prepoll, "line", hcaes(x=DAY, y=Prepoll)) %>%
+  hc_title(text = "Pre poll Markoffs")
+
+
+```
+
+
+
+
+Missing AoBP
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Applicant Training Status Election Day
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+datatable(missing_AoBP %>% ungroup() %>% dplyr::select(-LocationID,-LocationType), 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```
+
+
+
+Daily ledger
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Applicant Training Status Election Day
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+datatable(PrePoll_reconcilliation_allocations %>% ungroup() %>% dplyr::select(-LocationID, -`CumulativePre-poll`, -CumulativeDecVote, -CumulativeSpoilt, -CumulativeDiscarded,-Q_M_S,-LocationType), 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```
+
+
+Daily ledger Cumulative
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Applicant Training Status Election Day
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+datatable(PrePoll_reconcilliation_allocations %>% ungroup() %>% dplyr::select(-LocationID, -`Pre-poll`, -DecVote, -Spoilt, -Discarded,-LocationType), 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+              options = list(
+                            dom = 'Blfrtip',
+                             pageLength = 10,
+                             lengthMenu = c(10, 25, 50)),
+                              height = '480px',
+                              width='650px')
+
+
+
+```

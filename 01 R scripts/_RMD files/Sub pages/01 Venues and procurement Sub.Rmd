@@ -1,0 +1,246 @@
+---
+title: " Venues and procurement "
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+
+
+---
+
+
+<style>
+
+
+.bluebox {
+
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	
+	}
+
+body {
+
+  padding-top: 60px !important;
+  
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+
+div.leaflet-control-attribution{
+	display:none;
+}
+
+div.leaflet-container {
+    background: #0184a9;
+}
+
+
+
+</style>
+
+
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+Overall Summary
+=========================================
+
+Column {data-width=200}
+-----------------------------------------------------------------------
+
+Last update: 
+**`r Sys.time()`**
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA}
+
+
+filter_Area
+
+filter_VenueType
+
+filter_projection
+
+
+filter_Status
+
+```
+
+
+
+Column 
+-----------------------------------------------------------------------
+
+<table class='ValueBox'>
+<tr>
+
+<td width="200" class="bluebox">
+ <span>Unique Venues: </span><br>**`r summarywidget(procurement_sd, selection=~LocationStatusCode!="It's Away")`**
+</td>
+
+<td width="200" class="bluebox">
+ <span>Missing GeoCodes: </span><br>**`r summarywidget(procurement_sd, selection=~GeoStatus =='Missing', digits=0)`**
+</td>
+
+<!-- <td width="200" class="bluebox">
+ <span>Check Projection: </span><br>**`r summarywidget(procurement_sd, selection=~ProjectedVoters==0)`**
+</td>
+--> 
+
+<td width="200" class="bluebox">
+ <span>Procurement incomplete: </span><br>**`r summarywidget(procurement_sd, selection=~LocationStatusCode != 'Hire Agreement Signed')`**
+</td>
+
+
+</tr>
+</table>
+
+
+
+### Data 
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA}
+
+
+datatable(procurement_sd, rownames= FALSE, extensions = 'Buttons', filter = 'top',
+          options = list(
+            pageLength = 10
+            ,dom = 'tip'
+
+          #  ,lengthMenu = c(10, 20, 50, 100)
+            ),
+          height = '600px')
+
+
+
+```
+
+### Procurement Summary 
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA}
+
+datatable(Procurement_report, rownames= FALSE, extensions = 'Buttons', filter = 'top',
+          options = list(
+            pageLength = 8
+            ,dom = 'tip'
+          #  ,lengthMenu = c(10, 20, 50, 100)
+            ),
+          height = '400px')
+
+```
+
+
+
+Column 
+-----------------------------------------------------------------------
+
+
+### Search for venue of interest 
+```{r echo=FALSE, out.height="50%", message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA}
+
+VenueMap
+
+
+```
+
+Council Procurement Summary
+=========================================
+Column
+----------------------------------------------------------------------
+Last update: 
+**`r Sys.time()`**
+
+### Procurement Summary 
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA, out.width=="100%"}
+datatable(Procurement_report_by_area, rownames= FALSE, extensions = 'Buttons', filter = 'top',
+          options = list(
+            pageLength = 10
+            ,dom = 'Btip',
+            ,scrollY = '100%'
+
+            buttons=c( 'csv', 'excel')
+             # ,lengthMenu = c(10, 20, 50, 100)
+          ))
+
+```
+
+
+

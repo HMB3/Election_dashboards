@@ -1,0 +1,318 @@
+---
+title: "RMT Check Count"
+output: flexdashboard::flex_dashboard
+---
+<style>
+
+.navbar-inverse .navbar-nav>li>a {
+
+color:#000000;
+}
+
+
+.tab-content {
+
+	padding-top:30px;
+
+
+}
+
+.container-fluid {
+	
+	background-color:white;
+	padding-bottom:0px;
+	
+}
+
+.bluebox {
+ background-color: #2571bd;
+    border: solid #ddd 1px;
+    font-size: 15px;
+    height:40px;
+    padding:5px;
+    margin-bottom: 5px;
+    border-radius:5px;
+	color: #f9f9f9;
+	}
+
+body {
+    padding:0px;
+    padding-top:20px;
+
+ background-color: white;
+
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.leaflet-control-attribution{
+display:none;
+}
+
+.leaflet-container {
+ background-color: white;
+
+
+}
+
+
+.leaflet-popup-content-wrapper {
+ background: #eff4ef2e;
+ box-shadow:0 3px 10px rgba(0, 0, 0, 0);
+
+}
+
+
+.gmisc_table {
+
+ width:max-content;
+
+
+}
+
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #3d6ece;
+}
+
+table { 
+    border-spacing: 5px;
+    border-collapse: separate;
+    border:1px
+}
+
+.p {
+margin-top:20px
+
+}
+
+div.text1 {
+border: solid #ddd 1px;
+background-color: #f9f9f9;
+padding-left:20px;
+padding-top:10px;
+padding-bottom:10px;
+margin-top:20px;
+margin-bottom:20px;
+border-radius:3px;
+}
+
+
+
+div.header{
+
+padding-top:30px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	height:30px;
+    background-color: #2b6eda;
+    color: white;
+    text-align: center;
+}
+
+div.main-wrapper {
+    position: relative;
+}
+
+<!-- .navbar-fixed-top { -->
+
+<!-- visibility: hidden; -->
+
+<!-- } -->
+
+.buttons-copy {
+
+display: none !important;
+}
+
+.buttons-print {
+
+display: none !important;
+}
+
+</style>
+
+```{r setup}
+HasMayor <- nrow(Mayor) > 0
+
+
+
+```
+
+Summary
+=====================================
+
+Column {data-width=10}
+-------------------------------------
+### Last updated: **`r Sys.time()`**  with Event Group: **`r event_group_ID`**
+
+
+Councillor
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+formattable::formattable(Councillor_summary) 
+
+```
+
+Mayor
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+if (nrow(Mayor) > 0 ) {
+formattable::formattable(Mayor_summary) 
+} else {
+  cat("No Mayor contest")
+}
+
+```  
+
+
+
+
+
+Councillor
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Councillor
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+datatable(Councillor_show, 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+               options = list(
+                             searchCols = list(
+                              list(search = '["Yes"]')),
+                            dom = 'Blfrtip'
+                            ,lengthChange = FALSE
+                    #         pageLength = 10,
+                     #        lengthMenu = c(10, 25, 50)
+                     ),
+                     #         height = '480px',
+                              width='650px')
+
+
+
+```
+
+
+
+```{asis echo=HasMayor}
+
+
+Mayor
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+### Mayor
+```{r, fig.width=18, echo=FALSE, warning=FALSE, message=FALSE}
+
+
+ if (HasMayor ) { 
+datatable(Mayor_show, 
+              rownames= FALSE, extensions = 'Buttons',filter = 'top',
+               options = list(
+                             searchCols = list(
+                              list(search = '["Yes"]')),
+                            dom = 'Blfrtip'
+                            ,lengthChange = FALSE
+                    #         pageLength = 10,
+                     #        lengthMenu = c(10, 25, 50)
+                     ),
+                     #         height = '480px',
+                              width='650px')
+   
+ } else {
+   cat("No Mayor contest")
+ }
+
+
+
+```
+```
+
+
+Instructions and explanations
+=====================================
+
+Column {data-width=3}
+-------------------------------------
+
+<span class="demospan">
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Overview</strong></p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The Initial Count pages contain one record for each venue/vote type for each contest (Mayor, Councillor, Referendum question, Poll question).</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The Check Count pages contain one record for each venue/vote type for each contest (Mayor, Councillor) for which an Initial Count result has been entered in EMA and exported to PRCC.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Note: A Postal count that has no Accepted Ballot Papers has an Initial Count of 0&rsquo;s automatically generated by the system. These counts will have records in the RMT Workbook but are not included in the Postal totals on the Initial Count Summary page (as no review should be required). Also, comments entered in the Postal extraction process will be seen in EMA but not in the RMT Workbook.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The RMT Workbook pages do not refresh data automatically. The Summary page indicates the time the RMT Workbook database will be updated from EMA/PRCC. The user will need to refresh their browser after that to see refreshed data.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Diff Explanation</strong></p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The Diff1, Diff2, and Diff3 fields are calculated using the formulae indicated in the heading names. For example, on the Initial Count Councillor page, Diff1 (B-A) is calculated as Initial Count (B) &ndash; Expected (A).</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>A Diff field is considered outside tolerance if it is different from the figure being subtracted by 1% or more. For example, a Diff1 of 12 would be considered outside tolerance if the Expected was 1200 or more.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The Requires Checking field will be set to Yes if:</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>(Diff1 is outside tolerance OR Diff2 is outside tolerance OR Diff3, if applicable, is outside tolerance)</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>AND</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>(No approval comment has been entered)</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The Requires Checking field will be set to No if:</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>(Diff1 is inside tolerance AND Diff2 is inside tolerance AND Diff3, if applicable, is inside tolerance)</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>OR</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>(An approval comment has been entered)</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>An approval comment effectively overrides all current and future Diff tolerance issues and confirms this venue/vote type has been checked and both this Diff issue and all potential future Diff issues have been explained.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>To approve a variance outside tolerance on the Initial Count pages, enter a comment in EMA containing the text &ldquo;RMT Approved&rdquo; (ie without quotes, casing doesn&rsquo;t matter).</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>To approve a variance outside tolerance on the Check Count pages, enter a comment <span style="color:#1F497D;">in PRCC&nbsp;</span>containing the text &ldquo;RMT CC Approved&rdquo; (ie without quotes, casing doesn&rsquo;t matter). Note: Any comment entered against a count in EMA will not be imported into PRCC after its registered total is approved, hence the requirement to enter the Check Count approval comment in PRCC.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Terms</strong></p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Accounted: Ballot papers accounted for at a polling place &ndash; this figure will appear for Polling Places only</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Allocated: Ballot papers allocated to a polling place &ndash; this figure will appear for Polling Places only<br>&nbsp;Councillor: Total Votes in the Councillor Initial Count (sourced from EMA). For multi-ward venues in divided areas, this figure will be blank in RMT Workbook until a Councillor Initial Count has been entered for each ward.</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Registered/Approved: The number of ballot papers entered in PRCC</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Expected:</p>
+<ul style="list-style-type: undefined;">
+    <li>Polling Place: Expected ballot papers in the ballot box</li>
+    <li>Pre-poll: Electors marked off in EMA</li>
+    <li>Enrolment: Accepted declaration envelopes</li>
+    <li>NAMAV: Accepted declaration envelopes</li>
+    <li>Postal: Accepted BPs extracted from accepted declaration envelopes</li>
+</ul>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Initial Count: Total Votes</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>NAMAV: Name Already Marked As Voted</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>PP: Polling Place</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Registered/Approved: The figure registered in PRCC at the conclusion of batching - will only appear once approved</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Ward-Specific Polls</strong> (if applicable)</p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>The Expected and Councillor figures for these are provided at an area-wide level (ie same as for area-wide polls) instead of at ward level. As such, the variance checks will need to be performed in EMA rather than in RMT Workbook.</p>
+
+
+</span>
+
+```{r}
+
+
+
+
+
+```
