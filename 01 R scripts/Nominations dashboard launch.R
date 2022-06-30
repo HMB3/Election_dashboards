@@ -147,8 +147,7 @@ if(knit_rmd) {
 }
 
 
-setwd(rmd_files)
-rmarkdown::render('00 Index.Rmd', 
+rmarkdown::render('./01 R scripts/_RMD files/00 Index.Rmd', 
                   output_dir = './docs/')
 
 

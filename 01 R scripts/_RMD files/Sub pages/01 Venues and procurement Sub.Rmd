@@ -232,12 +232,12 @@ Last update:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, comment = NA, out.width=="100%"}
 datatable(Procurement_report_by_area, rownames= FALSE, extensions = 'Buttons', filter = 'top',
           options = list(
-            pageLength = 10
-            ,dom = 'Btip',
-            ,scrollY = '100%'
+            pageLength = 10,
+            dom = 'Btip',
+            scrollY = '100%',
 
-            buttons=c( 'csv', 'excel')
-             # ,lengthMenu = c(10, 20, 50, 100)
+            buttons=c( 'csv', 'excel'),
+            lengthMenu = c(10, 20, 50, 100)
           ))
 
 ```

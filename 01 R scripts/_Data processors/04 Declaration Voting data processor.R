@@ -18,7 +18,7 @@
 
 ## This code processes the data for the early-voting dashboard 
 message('Run R code to analyse the Declaration Voting data')
-source(paste0(Sys.getenv("source_control_local_path"), "Main/R Scripts - Production/Folder_locations.R"))
+# source(paste0(Sys.getenv("source_control_local_path"), "Main/R Scripts - Production/Folder_locations.R"))
 # setwd(base_data_source_folder)
 
 
