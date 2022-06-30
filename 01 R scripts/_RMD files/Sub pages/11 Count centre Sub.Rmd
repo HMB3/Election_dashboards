@@ -550,7 +550,7 @@ if(nrow(syd_contest_percent_remaining) > 0) {
   
   
   data_theme <- hc_theme(
-    s
+    
     chart = list(
       backgroundColor = "transparent", 
       style = list(

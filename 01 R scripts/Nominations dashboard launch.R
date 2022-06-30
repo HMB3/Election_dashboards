@@ -72,8 +72,7 @@ library(curl)
 
 
 ## Source the functions created just for the dashboard 
-load("D:/NSW_EC/source/Workspaces/DataAnalytics/Election_Events/LG2101/02 Dashboard/01 R scripts/Dashboard_Noms_data.RData")
-
+load('./01 R scripts/Dashboard_Noms_data.RData')
 source('./01 R scripts/Functions/dashboard_library.R')
 
 
@@ -95,7 +94,6 @@ image_files        <- './01 R scripts/_RMD files/Dashboard_graphs'
 sub_pages          <- './01 R scripts/_RMD files/Sub pages'
 
 
-noms_data        <- 'G:/Election Events/LGE 2020 Programme/AP02B Candidates & Parties/Candidates, Electoral Material, Ballot Papers/Dashboards/'
 
 source('./01 R scripts/Functions/dashboard_plotting_library.R')
 source('./01 R scripts/Functions/dashboard_functions_library.R')
@@ -128,8 +126,7 @@ options(dplyr.summarise.inform = FALSE, scipen = 999)
 
 ## Create Nominations data :
 # source(paste0(data_gen,  '05 Candidate Nominations data generator.R'))
-source(paste0(data_proc, '05 Candidate Nominations data processor.R'))
-
+source( './01 R scripts/_Data processors/05 Candidate Nominations data processor.R')
 
 ## Knit the sub-page to the sub-directory 
 #save.image(file = paste0(data_gen, "Dashboard_Noms_data.RData"))
@@ -137,22 +134,22 @@ source(paste0(data_proc, '05 Candidate Nominations data processor.R'))
 if(knit_rmd) {
   
   
-  setwd("D:/NSW_EC/source/Workspaces/DataAnalytics/Election_Events/LG2101/02 Dashboard/01 R scripts/_RMD files/Sub pages/")
+  # setwd('./01 R scripts/_RMD files/Sub pages/')
   
-  rmarkdown::render('05 Candidate Nominations Sub.Rmd', 
-                    output_dir = 'D:/NSW_EC/source/Workspaces/DataAnalytics/Election_Events/LG2101/02 Dashboard/08 Reports/Indexes/Sub pages/')
+  rmarkdown::render('./01 R scripts/_RMD files/Sub pages/05 Candidate Nominations Sub.Rmd', 
+                    output_dir = './docs/')
   
   ## Knit the main page to the index directory
-  setwd("D:/NSW_EC/source/Workspaces/DataAnalytics/Election_Events/LG2101/02 Dashboard/01 R scripts/_RMD files")
-  rmarkdown::render('05 Candidate Nominations.Rmd', 
-                    output_dir = 'D:/NSW_EC/source/Workspaces/DataAnalytics/Election_Events/LG2101/02 Dashboard/08 Reports/Indexes/')
+  # setwd('E:/Github_repos/election_dashboards/01 R scripts/_RMD files')
+  rmarkdown::render('01 R scripts/_RMD files/05 Candidate Nominations.Rmd', 
+                    output_dir = './docs/')
   
 }
 
 
 setwd(rmd_files)
 rmarkdown::render('00 Index.Rmd', 
-                  output_dir = 'D:/NSW_EC/source/Workspaces/DataAnalytics/Election_Events/LG2101/02 Dashboard/08 Reports/Indexes/')
+                  output_dir = './docs/')
 
 
 
