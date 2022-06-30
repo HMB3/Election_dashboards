@@ -24,7 +24,7 @@
 
 
 
-## Set parameters for analysis ----
+## Set parameters for analysis -----
 # event_group_ID is harvested from the NOMs endpoint data set
 # From staging is FALSE for the live event
 api_key             <- "AIzaSyB-ltOEpu8ZwF7H-ZOIIp5UmXHwewu27eA"
