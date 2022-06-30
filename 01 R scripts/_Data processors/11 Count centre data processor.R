@@ -554,11 +554,17 @@ newc_contest_percent_remaining <- forecastSummaryByContest %>%
 
 
 ## Split the contest % remaining graphs up by process and count location
-syd_contest_batch_percent_remaining  <- syd_contest_percent_remaining  %>% filter(Status == 'Batching')   
-syd_contest_data_percent_remaining   <- syd_contest_percent_remaining  %>% filter(Status == 'Data Entry')
+syd_contest_batch_percent_remaining  <- syd_contest_percent_remaining  %>% filter(Status == 'Batching') %>% 
+  dplyr::rename(Contest = ContestAreaCode)
 
-newc_contest_batch_percent_remaining <- newc_contest_percent_remaining %>% filter(Status == 'Batching')   
-newc_contest_data_percent_remaining  <- newc_contest_percent_remaining %>% filter(Status == 'Data Entry')
+syd_contest_data_percent_remaining   <- syd_contest_percent_remaining  %>% filter(Status == 'Data Entry') %>% 
+  dplyr::rename(Contest = ContestAreaCode)   
+
+newc_contest_batch_percent_remaining <- newc_contest_percent_remaining %>% filter(Status == 'Batching') %>% 
+  dplyr::rename(Contest = ContestAreaCode)  
+
+newc_contest_data_percent_remaining  <- newc_contest_percent_remaining %>% filter(Status == 'Data Entry') %>% 
+  dplyr::rename(Contest = ContestAreaCode)   
 
 
 

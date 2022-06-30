@@ -813,7 +813,7 @@ Column {data-width = 1000}
 datatable(forecastSummaryByContest %>% select(-EventGroupID, -Team, 
                                               -BatchingBPsOverCapacity, 
                                               -DataEntryBPsOverCapacity) %>% 
-            rename(ReadyForR1 = Batched),
+            dplyr::rename(ReadyForR1 = Batched),
           
           rownames      = FALSE, 
           extensions    = 'Buttons', 
@@ -1013,7 +1013,7 @@ Column {data-width = 1000}
 
 ### Contest Summary 
 ```{r echo = FALSE, message = FALSE, warning = FALSE, paged.print = FALSE, comment = NA}
-datatable(RO_progress_data %>% rename(ReadyForR1 = Batched) %>% 
+datatable(RO_progress_data %>% dplyr::rename(ReadyForR1 = Batched) %>% 
             
             filter(CountLocation != "Sydney Count Centre" & CountLocation != "Newcastle Count Centre") %>% 
             select(-EventGroupID, -DataEntryWorkload, -TotalBPsDataEntered, -BPsRemainingForDE),
