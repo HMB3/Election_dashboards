@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Welcome!</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><img id="logo" style="width: 200px;" src="logo.svg" /></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">LG21 Local Government Election Staff Survey</a>
+</li>
+<li class="dropdown-header"></li>
+<li class="dropdown-header"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Results
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="index.html">Home</a>
+    </li>
+    <li>
+      <a href="executive_summary.html">Executive summary</a>
+    </li>
+    <li>
+      <a href="survey_questions.html">Survey questions</a>
+    </li>
+    <li>
+      <a href="whs.html">Work, health &amp; safety</a>
+    </li>
+    <li>
+      <a href="venues.html">Venues</a>
+    </li>
+    <li>
+      <a href="recruitment.html">Recruitment</a>
+    </li>
+    <li>
+      <a href="training.html">Training</a>
+    </li>
+    <li>
+      <a href="staffing.html">Staffing</a>
+    </li>
+    <li>
+      <a href="resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="ro_office.html">RO Office</a>
+    </li>
+    <li>
+      <a href="information_technology.html">Information technology</a>
+    </li>
+    <li>
+      <a href="voting_operations.html">Voting operations</a>
+    </li>
+    <li>
+      <a href="counting_and_results.html">Counting &amp; results</a>
+    </li>
+    <li>
+      <a href="demographics.html">Respondent demographics</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="analysis_index_questions.html">Index questions</a>
+    </li>
+    <li>
+      <a href="analysis_whs.html">Work, health &amp; safety</a>
+    </li>
+    <li>
+      <a href="analysis_venues.html">Venues</a>
+    </li>
+    <li>
+      <a href="analysis_recruitment.html">Recruitment</a>
+    </li>
+    <li>
+      <a href="analysis_training.html">Training</a>
+    </li>
+    <li>
+      <a href="analysis_staffing.html">Staffing</a>
+    </li>
+    <li>
+      <a href="analysis_resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="analysis_information_technology.html">Information technology</a>
+    </li>
+    <li>
+      <a href="analysis_voting_operations.html">Voting operations</a>
+    </li>
+    <li>
+      <a href="analysis_counting_and_results.html">Counting &amp; results</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<style>
+
+.column-left{
+  float: left;
+  width: 35%;
+  text-align: left;
+}
+
+.column-right{
+  float: right;
+  width: 65%;
+  text-align: justify;
+}
+
+}
+
+</style>
+<p><br />
+</p>
+<div id="welcome-to-the-staff-survey-report" class="section level1">
+<h1>Welcome to the staff survey report!</h1>
+<div class="column-left">
+<p><br />
+</p>
+<p><a href="executive_summary.html">1. Executive summary</a></p>
+<p><a href="survey_questions.html">2. Survey questions</a></p>
+<p><a href="whs.html">3. Work, health &amp; safety</a></p>
+<p><a href="venues.html">4. Venues</a></p>
+<p><a href="recruitment.html">5. Recruitment</a></p>
+<p><a href="training.html">6. Training</a></p>
+<p><a href="staffing.html">7. Staffing</a></p>
+<p><a href="resources.html">8. Resources</a></p>
+<p><a href="ro_office.html">9. EM Office</a></p>
+<p><a href="information_technology.html">10. Information technology</a></p>
+<p><a href="voting_operations.html">11. Voting operations</a></p>
+<p><a href="counting_and_results.html">12. Counting &amp; results</a></p>
+<p><a href="demographics.html">13. Respondent demographics</a></p>
+</div>
+<div class="column-right">
+<p><br />
+</p>
+<p>The Data Analytics and Geospatial Services (DAGS) team would like to thank you for exploring this report. Election staff surveys have a consistently high response rate, usually with upward of 10 thousand respondents across seven main job roles. There are currently 184 survey questions.</p>
+<p>While it’s great to have lots of responses, collecting such a large, complex data set creates major challenges for timely analysis and dissemination of insights.</p>
+<p>Accordingly, we present here an automated report that aims to provide simple results to business users within days of the survey closing. Each page shows responses to individual questions by topic. These question summaries have been augmented by more detailed analyses in March 2022.</p>
+<p>The DAGS team is striving to deliver the most versatile and comprehensive report possible, but inevitably, there may be some bugs remaining.</p>
+<p>If you are able to provide feedback, corrections, or would like to contribute to the report (including suggestions for further analyses), we would be very grateful. Thanks also to the Comms team, our partners in this endeavour, and to all contributing stakeholders.</p>
+<p>You can drop us a line any time via <strong><a href="mailto:DAGS_support@elections.nsw.gov.au" class="email">DAGS_support@elections.nsw.gov.au</a></strong></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

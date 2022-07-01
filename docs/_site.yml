@@ -1,0 +1,35 @@
+
+name: "LG21 Local Government Election Dashboards"
+
+
+
+output_dir: 'doc'
+  html_document:
+    theme: lumen
+    highlight: tango
+    css: styles.css
+    self_contained: true
+
+navbar:
+    title: "<img id=\"logo\" style=\"width: 200px;\" src=\"logo.svg\" />"
+    left:
+      - text: "LG21 Local Government Election Dashboards"
+        href: index.html
+      # Add blank buttons to space the navbar elements
+      - text: ""
+      - text: ""
+      
+            # Add the contents dropdown
+      - text: Results
+        menu:
+        - text: Home
+          href: index.html
+        - text: Summary
+          href: Summary.html
+        - text: Candidate Nominations
+          href: 05-Candidate-Nominations-Sub.html
+        - text: Ballot Tracking
+          href: 08-Ballot-Track-Sub.html
+        - text: Vote Counting
+          href: 11-Count-centre-Sub.html
+

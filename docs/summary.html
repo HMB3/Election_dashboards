@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Executive Summary</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-3.5.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.15/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.10.20/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.10.20/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.20/js/buttons.flash.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.20/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.20/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.20/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-8.1.2/css/motion.css" rel="stylesheet" />
+<script src="site_libs/highcharts-8.1.2/highcharts.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-more.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/stock.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/map.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/annotations.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/item-series.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/export-data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/funnel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/treemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sankey.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dependency-wheel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/organization.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/vector.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/xrange.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/venn.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/gantt.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/timeline.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/bullet.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/coloraxis.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dumbbell.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/lollipop.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/series-label.js"></script>
+<script src="site_libs/highcharts-8.1.2/plugins/motion.js"></script>
+<script src="site_libs/highcharts-8.1.2/custom/reset.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/boost.js"></script>
+<script src="site_libs/highchart-binding-0.8.2/highchart.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><img id="logo" style="width: 200px;" src="logo.svg" /></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">LG21 Local Government Election Staff Survey</a>
+</li>
+<li class="dropdown-header"></li>
+<li class="dropdown-header"></li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Results
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="index.html">Home</a>
+    </li>
+    <li>
+      <a href="executive_summary.html">Executive summary</a>
+    </li>
+    <li>
+      <a href="survey_questions.html">Survey questions</a>
+    </li>
+    <li>
+      <a href="whs.html">Work, health &amp; safety</a>
+    </li>
+    <li>
+      <a href="venues.html">Venues</a>
+    </li>
+    <li>
+      <a href="recruitment.html">Recruitment</a>
+    </li>
+    <li>
+      <a href="training.html">Training</a>
+    </li>
+    <li>
+      <a href="staffing.html">Staffing</a>
+    </li>
+    <li>
+      <a href="resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="ro_office.html">RO Office</a>
+    </li>
+    <li>
+      <a href="information_technology.html">Information technology</a>
+    </li>
+    <li>
+      <a href="voting_operations.html">Voting operations</a>
+    </li>
+    <li>
+      <a href="counting_and_results.html">Counting &amp; results</a>
+    </li>
+    <li>
+      <a href="demographics.html">Respondent demographics</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="analysis_index_questions.html">Index questions</a>
+    </li>
+    <li>
+      <a href="analysis_whs.html">Work, health &amp; safety</a>
+    </li>
+    <li>
+      <a href="analysis_venues.html">Venues</a>
+    </li>
+    <li>
+      <a href="analysis_recruitment.html">Recruitment</a>
+    </li>
+    <li>
+      <a href="analysis_training.html">Training</a>
+    </li>
+    <li>
+      <a href="analysis_staffing.html">Staffing</a>
+    </li>
+    <li>
+      <a href="analysis_resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="analysis_information_technology.html">Information technology</a>
+    </li>
+    <li>
+      <a href="analysis_voting_operations.html">Voting operations</a>
+    </li>
+    <li>
+      <a href="analysis_counting_and_results.html">Counting &amp; results</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Executive Summary</h1>
+
+</div>
+
+
+<p>The analysis in this report is based on the results of the Election Staff Survey, following the Local Government Election held on 4th December, 2021. The results use only complete survey responses.</p>
+<p><br />
+</p>
+<div id="response-rate" class="section level1">
+<h1><strong>Response rate</strong></h1>
+<p>The survey was emailed to around 29 thousand temporary election staff members between 15/12/2021 and 22/12/2021. The overall response rate was approximately 47 per cent, with 10,089 completed surveys (a completed survey response rate of 35 per cent). The highest response rate was from PPM’s (over 50 per cent) and lowest for OA’s (less than 20 per cent; see Table 1).</p>
+<p><br />
+</p>
+<!-- Set alignment property for the following container -->
+<div align="left">
+<div id="htmlwidget-873249b169eb6149d57e" style="width:95%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-873249b169eb6149d57e">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption>Table 1: Response rates by role for the LG21 Staff Survey<\/caption>","fillContainer":false,"data":[["PPM","RO","DPPM","SOA","SOAPP","EO","OA"],[2145,70,2137,285,292,19484,4698],[1132,37,982,115,116,6881,826],[53,53,46,40,40,35,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Role<\/th>\n      <th>Staff<\/th>\n      <th>Responses<\/th>\n      <th>ResponseRate_%<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":100,"dom":"t","scrollY":true,"autoWidth":true,"columnDefs":[{"width":"150px","targets":0},{"width":"50px","targets":[1,3]},{"className":"dt-right","targets":[1,2,3]}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<p><br />
+</p>
+</div>
+<div id="work-health-safety-guidelines" class="section level1">
+<h1><strong>Work health safety guidelines</strong></h1>
+<p>The NSWEC implemented a new suite of WHS guidelines at this election, and the results show that most staff<br />
+reported compliance with the measures. Figure 1 shows that the vast majority of staff stated they finished<br />
+work before the mandated 11pm cut-off on election night. Although 12 per cent of respondents had some WHS<br />
+concerns (Q169), overall, the WHS and COVID-safe measures were well received. Ninety five per cent of<br />
+respondents were satisfied with the COVID-safe measures (Q2).</p>
+<p><br />
+</p>
+<p><img src="executive_summary_files/figure-html/unnamed-chunk-2-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p><strong>Figure 1.</strong> Number of staff finishing work at different times on Election Day. Each grey bar represents the number of staff finishing at a given time. The red line is the overall median finishing time (the middle value of all the finishing times). This plot shows that the vast majority of staff completed work prior to 11pm on election night.</p>
+<p><br />
+</p>
+</div>
+<div id="employee-sentiment" class="section level1">
+<h1><strong>Employee sentiment</strong></h1>
+<p>Election staff overwhelmingly believed the election was run fairly (98%), and would work for the NSWEC at a future election (94%; Figure 2).</p>
+<p><br />
+</p>
+<p><img src="executive_summary_files/figure-html/unnamed-chunk-3-1.png" width="1920" style="display: block; margin: auto;" /> <strong>Figure 2.</strong> Bar charts of overall elector sentiment.</p>
+<p><br />
+</p>
+<p><img src="executive_summary_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /> <strong>Figure 3.</strong> Word cloud of staff sentiment regarding working at the elections again.</p>
+<p><img src="executive_summary_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /> <strong>Figure 4.</strong> Word cloud of staff sentiment regarding not working at the elections again.</p>
+<p><br />
+</p>
+</div>
+<div id="overall-employee-satisfaction" class="section level1">
+<h1><strong>Overall employee satisfaction</strong></h1>
+<p>Election staff were generally satisfied with how the election was run, with most questions across all topics having satisfaction ratings greater than 80 per cent, and dissatisfaction ratings less than 10 per cent (see Table of Contents: All satisfaction responses; Figure 5).</p>
+<p><br />
+</p>
+<div id="htmlwidget-cbd3ad10bd2d35a2e76d" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cbd3ad10bd2d35a2e76d">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":"","margin":20,"align":"left","style":{"color":"#000000","useHTML":true}},"yAxis":{"title":{"text":"Percent"},"type":"linear","min":0,"max":100,"fontWeight":"bold"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true,"stacking":"normal"},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"Dissatisfied","data":[{"Topic":"EM/RO Office operations","Satisfaction":"Dissatisfied","Percent":7.8,"y":7.8,"name":"EM/RO Office operations"},{"Topic":"General Support","Satisfaction":"Dissatisfied","Percent":4.5,"y":4.5,"name":"General Support"},{"Topic":"IT and Tech Issues","Satisfaction":"Dissatisfied","Percent":6,"y":6,"name":"IT and Tech Issues"},{"Topic":"Recruitment","Satisfaction":"Dissatisfied","Percent":6.5,"y":6.5,"name":"Recruitment"},{"Topic":"Resources","Satisfaction":"Dissatisfied","Percent":2.5,"y":2.5,"name":"Resources"},{"Topic":"Training","Satisfaction":"Dissatisfied","Percent":9.1,"y":9.1,"name":"Training"},{"Topic":"Venues","Satisfaction":"Dissatisfied","Percent":6.5,"y":6.5,"name":"Venues"},{"Topic":"Vote Counting","Satisfaction":"Dissatisfied","Percent":2.4,"y":2.4,"name":"Vote Counting"},{"Topic":"Voting Operations","Satisfaction":"Dissatisfied","Percent":5.6,"y":5.6,"name":"Voting Operations"}],"type":"bar"},{"name":"Neutral","data":[{"Topic":"EM/RO Office operations","Satisfaction":"Neutral","Percent":21.1,"y":21.1,"name":"EM/RO Office operations"},{"Topic":"General Support","Satisfaction":"Neutral","Percent":7.8,"y":7.8,"name":"General Support"},{"Topic":"IT and Tech Issues","Satisfaction":"Neutral","Percent":11.8,"y":11.8,"name":"IT and Tech Issues"},{"Topic":"Recruitment","Satisfaction":"Neutral","Percent":7.6,"y":7.6,"name":"Recruitment"},{"Topic":"Resources","Satisfaction":"Neutral","Percent":7.4,"y":7.4,"name":"Resources"},{"Topic":"Training","Satisfaction":"Neutral","Percent":14.4,"y":14.4,"name":"Training"},{"Topic":"Venues","Satisfaction":"Neutral","Percent":10.9,"y":10.9,"name":"Venues"},{"Topic":"Vote Counting","Satisfaction":"Neutral","Percent":7.9,"y":7.9,"name":"Vote Counting"},{"Topic":"Voting Operations","Satisfaction":"Neutral","Percent":10.6,"y":10.6,"name":"Voting Operations"}],"type":"bar"},{"name":"Satisfied","data":[{"Topic":"EM/RO Office operations","Satisfaction":"Satisfied","Percent":71,"y":71,"name":"EM/RO Office operations"},{"Topic":"General Support","Satisfaction":"Satisfied","Percent":87.7,"y":87.7,"name":"General Support"},{"Topic":"IT and Tech Issues","Satisfaction":"Satisfied","Percent":82.2,"y":82.2,"name":"IT and Tech Issues"},{"Topic":"Recruitment","Satisfaction":"Satisfied","Percent":85.8,"y":85.8,"name":"Recruitment"},{"Topic":"Resources","Satisfaction":"Satisfied","Percent":90.1,"y":90.1,"name":"Resources"},{"Topic":"Training","Satisfaction":"Satisfied","Percent":76.5,"y":76.5,"name":"Training"},{"Topic":"Venues","Satisfaction":"Satisfied","Percent":82.6,"y":82.6,"name":"Venues"},{"Topic":"Vote Counting","Satisfaction":"Satisfied","Percent":89.7,"y":89.7,"name":"Vote Counting"},{"Topic":"Voting Operations","Satisfaction":"Satisfied","Percent":83.8,"y":83.8,"name":"Voting Operations"}],"type":"bar"}],"xAxis":{"type":"category","title":{"text":"Topic"},"categories":null},"colors":["#ff7f50","#d3d3d3","#50C878"]},"theme":{"chart":{"backgroundColor":"transparent","style":{"fontFamily":"Helvetica"}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Helvetica","debug":false},"evals":[],"jsHooks":[]}</script>
+<p><strong>Figure 5.</strong> Bar-chart of combined satisfaction responses to survey questions across topics. Only ‘satisfaction’ type questions are included in this plot, and the EM/EM Office topic was only answered by <strong>three respondents</strong>.</p>
+<p><br />
+</p>
+</div>
+<div id="data-use" class="section level1">
+<h1><strong>Data use</strong></h1>
+<p>The results of the SG2301 staff survey can be used to support the continuous improvement of NSWEC election processes. When using the survey results, please feel free to consult with the Data Analytics and Geospatial Services team for help with interpretation and analysis.</p>
+<p><br />
+</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
