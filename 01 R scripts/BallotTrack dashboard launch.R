@@ -117,8 +117,8 @@ if (BallotTrack) {
   
   # load('./01 R scripts/Dashboard_BT_data.RData')
   # load('./01 R scripts/Venues_Dashboard_data.RData')
-  # load('./01 R scripts/Dashboard_BT_data.RData')
-  load('./01 R scripts/Dashboard_staffing_data.RData')
+  load('./01 R scripts/Dashboard_BT_data.RData')
+  # load('./01 R scripts/Dashboard_staffing_data.RData')
   # source('./01 R scripts/_Data processors/08 Ballot Track data processor.R')
   source('./01 R scripts/_Data processors/08 Ballot Track data processor.R')
   

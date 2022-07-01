@@ -155,7 +155,7 @@ if (CCMT) {
   # 
   # source(paste0(data_gen,  '11 Count centre data generator.R'))
   load('./01 R scripts/Dashboard_CC_data.RData')
-  # source('./01 R scripts/_Data processors/11 Count centre data processor.R')
+  source('./01 R scripts/_Data processors/11 Count centre data processor.R')
   
   
   if(knit_rmd) {

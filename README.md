@@ -18,6 +18,9 @@ required by legislation, several bespoke databases must be accessed, and the inf
 individual tables covering different topics. Approximately 3k nominations were received for LG21.
 
 
+![](https://https://github.com/HMB3/Election_dashboards/blob/main/graphs/Noms_graph.png?raw=true)
+
+
 
 # **Declaration Voting** 
 Under NSW legislation, several vote types are recognized as valid votes in either Council or general state elections.
@@ -27,6 +30,9 @@ processing is on track, several bespoke databases must again be accessed, and th
 individual tables relating to vote type.
 
 
+![](https://github.com/HMB3/Election_dashboards/blob/main/graphs/DecVoting.png?raw=true)
+
+
 # **Ballot Tracking** 
 Every ballot paper in a NSW election must be rigorously accounted for. Ballots papers are stored in cartons of various sizes 
 (several hundred to several thousand - and every carton has a bar code, that is scanned through several logistical stages of 
@@ -34,7 +40,13 @@ the delivery process (from the printer to final vote counting). The dashboard in
 to track if the number of expected cartons (which is know at the start of the election) was being scanned in and out at each stage.
 
 
+![](https://github.com/HMB3/Election_dashboards/blob/main/graphs/ballot_track.png?raw=true)
+
+
 # **Vote Counting** 
 The Vote counting process has been rigorously developed over many years according to tight protocols to control for human error
-and logistical bottlenecks. All cartons of ballot papers are delivered from regional offices (e.g. Parramatta) to central vote counting 
-locations at Sydney and Newcastle. The vote counting is then split into two processes - batching and data entry.
+and logistical bottlenecks. All cartons of ballot papers are delivered from regional offices (e.g. Parramatta) to central vote 
+counting locations at Sydney and Newcastle. The vote counting is then split into two processes - batching and data entry.
+
+
+![](https://github.com/HMB3/Election_dashboards/blob/main/graphs/CC_summary.png?raw=true)

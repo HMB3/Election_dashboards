@@ -187,7 +187,7 @@ Syd_percent_remaining <- forecastSummaryCountLocation %>%
   ## Just get Syd
   filter(CountLocation == "Sydney Count Centre")        %>% 
   
-  select(BatchingProgressPercent,
+  dplyr::select(BatchingProgressPercent,
          DataEntryProgressPercent,
          CountLocation) %>% 
   
@@ -231,7 +231,7 @@ Newcastle_percent_remaining <- forecastSummaryCountLocation %>%
   ## Just get Syd
   filter(CountLocation == "Newcastle Count Centre") %>% 
   
-  select(`BatchingProgressPercent`,
+  dplyr::select(`BatchingProgressPercent`,
          `DataEntryProgressPercent`,
          CountLocation) %>% 
   
@@ -278,7 +278,7 @@ Syd_Centre_HeadlineTable <- forecastSummaryCountLocation %>%
   filter(CountLocation == "Sydney Count Centre") %>% 
   
   ## Remove columns
-  select(-`BatchingProgressPercent`,
+  dplyr::select(-`BatchingProgressPercent`,
          -`DataEntryProgressPercent`,
          -`EventGroupID`,
          -`CountLocation`) %>% 
@@ -322,7 +322,7 @@ Syd_Centre_HeadlineTable <- forecastSummaryCountLocation %>%
                                                        weekdays(., abbreviate = FALSE), 
                                                      ' ', format(scheduled_data_entry_finish_syd, "%d/%m/%Y"))) %>%
   
-  select(-BatchingFinishDay, -DataEntryFinishDay) %>% 
+  dplyr::select(-BatchingFinishDay, -DataEntryFinishDay) %>% 
   
   ## Wide to Long
   pivot_longer(., cols = everything(),
@@ -377,7 +377,7 @@ Newcastle_Count_HeadlineTable <- forecastSummaryCountLocation %>%
   filter(CountLocation == "Newcastle Count Centre") %>% 
   
   ## Remove columns
-  select(-`BatchingProgressPercent`,
+  dplyr::select(-`BatchingProgressPercent`,
          -`DataEntryProgressPercent`,
          -`EventGroupID`,
          -`CountLocation`) %>% 
@@ -420,7 +420,7 @@ Newcastle_Count_HeadlineTable <- forecastSummaryCountLocation %>%
                                                       weekdays(., abbreviate = FALSE), 
                                                     ' ', format(scheduled_data_entry_finish_newc, "%d/%m/%Y"))) %>%
   
-  select(-BatchingFinishDay, -DataEntryFinishDay) %>% 
+  dplyr::select(-BatchingFinishDay, -DataEntryFinishDay) %>% 
   
   ## Wide to Long
   pivot_longer(., cols = everything(),
@@ -476,7 +476,7 @@ Newcastle_Count_HeadlineTable <- forecastSummaryCountLocation %>%
 syd_contest_percent_remaining <- forecastSummaryByContest %>%
   
   filter(CountLocation == "Sydney Count Centre") %>%
-  select(ContestAreaCode,
+  dplyr::select(ContestAreaCode,
          BatchingProgressPercent,
          DataEntryProgressPercent) %>% rename(Contest = ContestAreaCode) %>%
   
@@ -518,7 +518,7 @@ newc_contest_percent_remaining <- forecastSummaryByContest %>%
   filter(CountLocation == "Newcastle Count Centre") %>%
   
   
-  select(ContestAreaCode,
+  dplyr::select(ContestAreaCode,
          BatchingProgressPercent,
          DataEntryProgressPercent) %>% rename(Contest = ContestAreaCode) %>%
   
@@ -580,7 +580,7 @@ RO_count_centre_percent_remaining <- forecastSummaryCountLocation %>%
   filter(CountLocation != "Sydney Count Centre" & CountLocation != "Newcastle Count Centre") %>% 
   
   ## Just 
-  select(CountLocation,
+  dplyr::select(CountLocation,
          BatchingProgressPercent,
          DataEntryProgressPercent) %>% 
   

@@ -199,7 +199,7 @@ if(nrow(ballot_track_overall_progress) > 0) {
     
     hc_add_theme(my_theme) %>% 
     hc_colors(cols)        %>% 
-    hc_size(height = 300)
+    hc_size(height = 650)
   
   BT_progress
   
