@@ -161,12 +161,12 @@ if (CCMT) {
   if(knit_rmd) {
     
     #Knit the sub-page to the sub-directory 
-    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/11 Count centre Sub.Rmd', 
+    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/Vote_Counting_sub.Rmd', 
                       output_dir = './docs/')
     
     
     ## Knit the main page to the index directory
-    rmarkdown::render('01 R scripts/_RMD files/11 Count centre.Rmd', 
+    rmarkdown::render('01 R scripts/_RMD files/Vote_Counting.Rmd', 
                       output_dir = './docs/')
     
     }

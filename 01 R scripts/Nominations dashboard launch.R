@@ -136,12 +136,12 @@ if(knit_rmd) {
   
   # setwd('./01 R scripts/_RMD files/Sub pages/')
   
-  rmarkdown::render('./01 R scripts/_RMD files/Sub pages/05 Candidate Nominations Sub.Rmd', 
+  rmarkdown::render('./01 R scripts/_RMD files/Sub pages/Candidate_Nominations_Sub.Rmd', 
                     output_dir = './docs/')
   
   ## Knit the main page to the index directory
   # setwd('E:/Github_repos/election_dashboards/01 R scripts/_RMD files')
-  rmarkdown::render('01 R scripts/_RMD files/05 Candidate Nominations.Rmd', 
+  rmarkdown::render('01 R scripts/_RMD files/Candidate_Nominations.Rmd', 
                     output_dir = './docs/')
   
 }
