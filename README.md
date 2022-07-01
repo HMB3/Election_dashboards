@@ -18,7 +18,7 @@ required by legislation, several bespoke databases must be accessed, and the inf
 individual tables covering different topics. Approximately 3k nominations were received for LG21.
 
 
-![](https://https://github.com/HMB3/Election_dashboards/blob/main/graphs/Noms_graph.png?raw=true)
+![](https://github.com/HMB3/Election_dashboards/blob/main/graphs/Noms_graph.png?raw=true)
 
 
 
