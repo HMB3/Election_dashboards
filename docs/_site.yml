@@ -24,10 +24,10 @@ navbar:
         menu:
         - text: Home
           href: index.html
-        - text: Summary
-          href: Summary.html
         - text: Candidate Nominations
-          href: 05-Candidate-Nominations-Sub.html
+          href: Candidate_Nominations_Sub.html
+        - text: Declaration Voting
+          href: Declaration Voting_Sub.html
         - text: Ballot Tracking
           href: 08-Ballot-Track-Sub.html
         - text: Vote Counting
