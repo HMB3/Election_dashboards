@@ -1,4 +1,4 @@
-# **Election Dash boards** 
+# **Council Election Dash boards** 
 The dashboards presented here are a sample of those that were used to help plan for, and run, the NSW Local Council 
 Elections held on December 4th, 2021. Council Elections in NSW are a complex logistical exercise, involving the 
 coordination of >25k staff across > 2.5k venues, and take a full year to plan and execute. The Data Analysis team
@@ -9,8 +9,7 @@ users at regular intervals). The Data team designed a series of dashboards in co
 experts, to show in real time if various electoral processes were on track. This site shows a sample of dashboards 
 that were designed for these processes.
 
-\
-\
+
 
 # **Candidate Nominations** 
 The nominations process involves manual vetting of applications from major parties, minor parties and independents.
@@ -18,8 +17,6 @@ To summarise if the number of expected applications are being received and proce
 required by legislation, several bespoke databases must be accessed, and the information synthesized across many
 individual tables covering different topics. Approximately 3k nominations were received for LG21.
 
-\
-\
 
 
 # **Declaration Voting** 
@@ -29,12 +26,10 @@ elecorate, are not on the roll, or may have already voted), and require extra ma
 processing is on track, several bespoke databases must again be accessed, and the information synthesized across many 
 individual tables relating to vote type.
 
-\
-\
 
 # **Ballot Tracking** 
 Every ballot paper in a NSW election must be rigorously accounted for. Ballots papers are stored in cartons of various sizes 
-- several hundred to several thousand - and every carton has a bar code, that is scanned through several logistical stages of 
+(several hundred to several thousand - and every carton has a bar code, that is scanned through several logistical stages of 
 the delivery process (from the printer to final vote counting). The dashboard interfaced with 3rd party software and EC databases 
 to track if the number of expected cartons (which is know at the start of the election) was being scanned in and out at each stage.
 
