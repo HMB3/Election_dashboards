@@ -1,0 +1,868 @@
+---
+title: 'BallotTrack'
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+    self_contained: false
+---
+
+
+<style>
+
+.bluebox {
+background-color: #ffffff;
+border: solid #ddd 1px;
+font-size: 15px;
+height:40px;
+padding:5px;
+margin-bottom: 5px;
+border-radius:5px;
+color: #f9f9f9;
+}
+
+body {
+padding-top: 115px !important;
+font-family: Helvetica;
+background-color: #ffffff;
+font-size: 10pt;
+height: 100%;
+}
+
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+font-size: 10pt;
+font-family: Helvetica;
+}
+
+h1 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+h2 {
+font-weight: bold;
+font-family: Helvetica;
+font-size: 10px;
+}
+
+
+.leaflet-control-attribution{
+display:none;
+}
+
+
+
+.btn {
+background-color: DodgerBlue;
+border: none;
+color: white;
+cursor: pointer;
+font-size: 10px;
+display: none;
+}
+
+.btn:hover {
+background-color: #3d6ece;
+}
+
+table {
+border-spacing: 5px;
+border-collapse: separate;
+border:1px
+}
+
+
+div.header{
+
+padding-top:0px;
+
+}
+
+
+div.main-container { max-width: 50%; }
+table.table-condensed {width:100%}
+
+
+div.footer {
+position: sticky;
+bottom: 0;
+width: 100%;
+height:30px;
+background-color: #2b6eda;
+color: white;
+text-align: center;
+}
+
+div.main-wrapper {
+position: relative;
+}
+
+
+div.leaflet-control-attribution{
+display:none;
+}
+
+div.leaflet-container { 
+background: #0184a9;
+}
+
+<!-- .highcharts-axis-labels highcharts-xaxis-labels{ -->
+<!-- font-size:100px; -->
+<!-- } -->
+
+</style>
+
+
+<!-- set global options here? -->
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, warning = FALSE, fig.fullwidth = TRUE)
+library(ggplot2)
+
+```
+
+
+Overall Scan Progress 
+==============================================================
+
+
+Column {data-width = 1}
+-----------------------------------------------------------------------
+
+
+\
+\
+\
+
+Column {data-width = 5}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+<!-- </br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm. -->
+<!-- </br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `** -->
+
+
+
+```{r, fig.width=30, fig.height=15, fig.align = 'center'}
+
+my_theme <- hc_theme(
+  chart = list(
+    backgroundColor = "transparent", 
+    style = list(
+      fontFamily = "Helvetica")))
+cols <-  c('#d3d3d3', '#50C878')
+
+
+## The overall graph
+if(nrow(ballot_track_overall_progress) > 0) {
+  
+  ## Stacked + percent - scan out
+  BT_progress <- hchart(ballot_track_overall_progress, type = 'bar', 
+                        hcaes( y = Percent, group = Scanned, x = Status)) %>%
+    
+    hc_title(
+      text = "<b>Overall Ballot Track Scanning Progress<b>",
+      margin = 40,
+      align = "left",
+      style = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin     = 40,
+      maxPadding = 30,
+      title    = list(
+        text   = "Percent",       # The actual title text
+        align  = "high",          # Documentation says options are: low, middle or high
+        margin = 10,              # Number of pixels between the title and the axis line
+        
+        style        = list(
+          fontWeight = "bold",    # Bold
+          fontSize   = '100px',   # 1.4 x tthe size of the default text
+          color      = "#000000"  # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text  = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite   = FALSE,
+      margin     = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 60)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)        %>% 
+    hc_size(height = 650)
+  
+  BT_progress
+  
+} else {
+  print('No Cartons have bee scanned, try again later :]')
+}
+
+```
+
+<!-- </br> **For each Ballot track scanning status, these graphs display the % of all Cartons which have been**  -->
+<!-- </br> **completely processed through that staus (i.e. all Cartons have been scanned in or out) for each RO**.  -->
+<!-- </br> **RO count includes Newcastle and Sydney Count Centres, and the CPVC.** -->
+
+
+Column {data-width = 1}
+-----------------------------------------------------------------------
+
+
+\
+\
+\
+
+
+RO Scan Progress
+==============================================================
+
+
+
+Column {data-width = 5}
+-----------------------------------------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+
+```{r, fig.width=20, fig.height=6, fig.align = 'center'}
+if(nrow(RO_2.0_percent_scanned_graph) > 0) {
+  
+  ## Phase 2
+  BT_2.0_progress <- hchart(RO_2.0_percent_scanned_graph, type = 'bar', 
+                            hcaes( y = Percent, group = Scanned, x = `RO Name`)) %>%
+    
+    hc_title(
+      text   = "<b>RO Scan-in from Printer Progress<b>",
+      margin = 40,
+      align  = "left",
+      style  = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",        # The actual title text
+        align = "high",          # Documentation says options are: low, middle or high
+        margin = 10,             # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",   # Bold
+          fontSize = '10.5em',   # 1.4 x tthe size of the default text
+          color = "#000000"      # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)        %>% 
+    hc_size(height = 1500)
+  
+  
+  
+  ## Phase 3 :
+  BT_3.0_progress <- hchart(RO_3.0_percent_scanned_graph, type = 'bar', 
+                            hcaes( y = Percent, group = Scanned, x = `RO Name`)) %>%
+    
+    hc_title(
+      text   = "<b>RO Scan-out to Venue Progress<b>",
+      margin = 40,
+      align  = "left",
+      style  = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",       # The actual title text
+        align = "high",         # Documentation says options are: low, middle or high
+        margin = 10,            # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",   # Bold
+          fontSize = '10.5em',   # 1.4 x tthe size of the default text
+          color = "#000000"      # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)           %>% 
+    hc_size(height = 1500)
+  
+  
+  ## Phase 4
+  BT_4.0_progress <- hchart(RO_4.0_percent_scanned_graph, type = 'bar',
+                            hcaes( y = Percent, group = Scanned, x = `RO Name`)) %>%
+    
+    hc_title(
+      text = "<b>RO Scan-in from Venue Progress<b>",
+      margin = 40,
+      align = "left",
+      style = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",       # The actual title text
+        align = "high",         # Documentation says options are: low, middle or high
+        margin = 10,            # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",  # Bold
+          fontSize = '10.5em',  # 1.4 x tthe size of the default text
+          color = "#000000"     # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)           %>% 
+    hc_size(height = 1500)
+  
+  
+  ## Phase 5.10
+  BT_5.10_progress <- hchart(RO_5.10_percent_scanned_graph, type = 'bar',
+                             hcaes( y = Percent, group = Scanned, x = `RO Name`)) %>%
+    
+    hc_title(
+      text = "<b>RO scan-out to CC Progress<b>",
+      margin = 40,
+      align = "left",
+      style = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",    # The actual title text
+        align = "high",         # Documentation says options are: low, middle or high
+        margin = 10,            # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",   # Bold
+          fontSize = '10.5em',    # 1.4 x tthe size of the default text
+          color = "#000000"      # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)           %>% 
+    hc_size(height = 1500)
+  
+  
+  ## Phase 5.11
+  BT_5.11_progress <- hchart(RO_5.11_percent_scanned_graph, type = 'bar',
+                             hcaes( y = Percent, group = Scanned, x = `Count Centre Name`)) %>%
+    
+    hc_title(
+      text = "<b>Count Centre Scan-in from RO Progress<b>",
+      margin = 40,
+      align = "left",
+      style = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",    # The actual title text
+        align = "high",         # Documentation says options are: low, middle or high
+        margin = 10,            # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",   # Bold
+          fontSize = '10.5em',    # 1.4 x tthe size of the default text
+          color = "#000000"      # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)           %>% 
+    hc_size(height = 1500)
+  
+  ## Phase 5.0
+  BT_5.0_progress <- hchart(RO_5.0_percent_scanned_graph, type = 'bar',
+                            hcaes( y = Percent, group = Scanned, x = `RO Name`)) %>%
+    
+    hc_title(
+      text = "<b>RO Scan-out to Warehouse Progress<b>",
+      margin = 40,
+      align = "left",
+      style = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",    # The actual title text
+        align = "high",         # Documentation says options are: low, middle or high
+        margin = 10,            # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",   # Bold
+          fontSize = '10.5em',    # 1.4 x tthe size of the default text
+          color = "#000000"      # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>% 
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)           %>% 
+    hc_size(height = 1500)
+  
+  
+  ## Phase 5.14
+  BT_5.14_progress <- hchart(RO_5.14_percent_scanned_graph, type = 'bar',
+                             hcaes( y = Percent, group = Scanned, x = `Count Centre Name`)) %>%
+    
+    hc_title(
+      text = "<b>Count Centre Scan in to ULD Progress<b>",
+      margin = 40,
+      align = "left",
+      style = list(color = "#000000", useHTML = TRUE)) %>% 
+    
+    hc_yAxis(
+      min   = 0, max = 100,
+      title = list(text = "<b>Percent (%)<b>"),
+      fontWeight = "bold",
+      margin = 40,
+      maxPadding = 30,
+      title = list(
+        text = "Percent",    # The actual title text
+        align = "high",         # Documentation says options are: low, middle or high
+        margin = 10,            # Number of pixels between the title and the axis line
+        style = list(
+          fontWeight = "bold",   # Bold
+          fontSize = '10.5em',    # 1.4 x tthe size of the default text
+          color = "#000000"      # Hex code for the default blue
+        ))) %>% 
+    
+    hc_xAxis(
+      title = list(text = ""),
+      alternateGridColor = "#FDFFD5",
+      opposite = FALSE,
+      margin = 40,
+      maxPadding = 30
+    ) %>%  
+    
+    ## Make sure the graph is long enough
+    hc_plotOptions(series  = list(stacking      = "normal"),
+                   bar     = list(pointWidth    = 20)) %>%
+    
+    hc_add_theme(my_theme) %>% 
+    hc_colors(cols)           %>% 
+    hc_size(height = 1500)
+  
+  
+  ## Panel of all figures
+  Ballot_track_grid <- hw_grid(BT_2.0_progress,
+                               BT_3.0_progress,
+                               BT_4.0_progress,
+                               BT_5.10_progress,
+                               BT_5.11_progress,
+                               BT_5.0_progress, ncol = 2)
+  
+  Ballot_track_grid
+  
+} else {
+  print('No Cartons have bee scanned, try again later :]')
+}
+
+```
+
+
+\
+
+
+RO Scan-in from Printer
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of carton scans - Returning Office/STH/CPVC Scan-in from Printer **
+
+```{r}
+
+## View here
+datatable(RO_2.0_scan_in_from_printer %>%
+            
+            ## Sort columns
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`), 
+          
+          rownames     = FALSE, 
+          extensions   = 'Buttons', 
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_2.0_scan_in_from_printer)), fontSize = "9pt") %>% 
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+```
+
+
+
+RO Scan Out to venue
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of carton scans - Returning Office Scan-out to Venue **
+
+```{r}
+
+datatable(RO_3.0_scan_out_to_venue %>%
+            
+            ## 
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`), 
+          
+          rownames     = FALSE, 
+          extensions   = 'Buttons', 
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_3.0_scan_out_to_venue)), fontSize = "9pt") %>% 
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+```
+
+
+
+
+
+RO Scan-in from Venue
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of scans - Returning Office Scan-in from Venue **
+
+```{r}
+
+datatable(RO_4.0_scan_in_from_venue %>%
+            
+            ## Sort columns
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`),
+          
+          rownames     = FALSE, 
+          extensions   = 'Buttons', 
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_4.0_scan_in_from_venue)), fontSize = "9pt") %>% 
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+
+```
+
+
+
+
+
+RO Scan-out to Count Centre
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of scans Returning Office Scan-out to Count Centre **
+
+```{r}
+
+datatable(RO_5.10_scan_out_to_CC %>%
+            
+            ## Sort columns
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`),
+          
+          rownames     = FALSE, 
+          extensions   = 'Buttons', 
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_5.10_scan_out_to_CC)), fontSize = "9pt") %>% 
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+```
+
+
+
+
+
+
+Count Centre Scan-in from RO
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of scans Count Centre Scan-in from Returning Office **
+
+```{r}
+
+datatable(RO_5.11_scan_from_RO_to_CC %>%
+            
+            ## Sort columns
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`),
+          
+          rownames     = FALSE, 
+          extensions   = 'Buttons', 
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_5.11_scan_from_RO_to_CC)), fontSize = "9pt") %>% 
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+```
+
+
+
+
+
+
+RO Scan-out to Warehouse 
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of scans - Returning Office Scan-out to Warehouse **
+
+```{r}
+
+datatable(RO_5.0_scan_out_to_Ware %>%
+            
+            ## Sort columns
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`,
+                    `Contest Name`) %>% ungroup %>% dplyr::select(-ContestType), 
+          
+          rownames     = FALSE, 
+          extensions   = 'Buttons', 
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_5.0_scan_out_to_Ware)), fontSize = "9pt") %>% 
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+
+```
+
+
+
+Count Centre Scan in to ULD
+=====================================
+
+
+Column {data-width = 800}
+-------------------------------------
+
+### **EventGroupID: ** **`r event_group_ID`**
+</br> Data is **not** updated in real time. Updates occur every 30 minutes between 8am and 6pm.
+</br> Last update: **`r Sys.time()`** by: **`r if (nchar(Sys.getenv("knit_by")) > 0) {Sys.getenv("knit_by")} else {} `**
+</br>
+
+### **Progress of scans - Count Centre Scan Carton into ULD **
+
+```{r}
+
+datatable(RO_5.14_CC_scan_in_to_ULD %>%
+            
+            ## Sort columns
+            arrange(`RO Name`,
+                    `ContestType`,
+                    `UseCase`,
+                    `Container Name`),
+          
+          rownames     = FALSE,
+          extensions   = 'Buttons',
+          filter       = 'top',
+          
+          options      = list(
+            pageLength = 100,
+            dom        = 'Btip',
+            scrollY = '100%',
+            buttons    = c('csv', 'excel'))) %>%
+  
+  formatStyle(columns = rep(1:length(RO_5.14_CC_scan_in_to_ULD)), fontSize = "9pt") %>%
+  formatPercentage(c("PercentScanned",  "PercentRemaining"), digits = 1)
+
+## Final message
+message('All BallotTrack RMD code run')
+
+```
+
+
+
+
