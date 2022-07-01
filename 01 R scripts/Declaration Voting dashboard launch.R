@@ -123,16 +123,19 @@ options(dplyr.summarise.inform = FALSE, scipen = 999)
 if (DecVote) {
   
   load('./01 R scripts/Declartion_Voting_work_space.RData')
-  # source('./01 R scripts/_Data processors/04 Declaration Voting data processor.R')
+  source('./01 R scripts/_Data processors/04 Declaration Voting data processor.R')
   
   ## Knit the sub-page to the sub-directory
   if(knit_rmd) {
     
-    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/04 Declaration Voting Sub.Rmd', 
+    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/Declaration_Voting_Sub.Rmd', 
                       output_dir = './docs/')
     
     ## Knit the main page to the index directory
-    rmarkdown::render('./01 R scripts/_RMD files/04 Declaration Voting.Rmd', 
+    rmarkdown::render('./01 R scripts/_RMD files/Declaration_Voting.Rmd', 
+                      output_dir = './docs/')
+    
+    rmarkdown::render('./01 R scripts/_RMD files/summary.Rmd', 
                       output_dir = './docs/')
     
   }

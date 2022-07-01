@@ -84,10 +84,10 @@ names(Barcode_endpoint) <- gsub("([a-z])([A-Z])", "\\1 \\2",
 ## The combined table is a matrix of cartons*status (~40k rows).
 ## This table starts as a complete - including all possible combinations, with many blank rows. 
 ## All the rows will then be populated, as the cartons are progressively scanned.
-write_csv(Barcode_endpoint,              paste0(BT_server_data, 'Barcode_endpoint',         '.csv'))
-write_csv(Ballot_Track_containers,       paste0(BT_server_data, 'Ballot_Track_containers',  '.csv'))
-write_csv(Ballot_Track_connote,          paste0(BT_server_data, 'Ballot_Track_connote',     '.csv'))
-write_csv(Ballot_Track_container_status, paste0(BT_server_data, 'Ballot_Track_status',      '.csv'))
+# write_csv(Barcode_endpoint,              paste0(BT_server_data, 'Barcode_endpoint',         '.csv'))
+# write_csv(Ballot_Track_containers,       paste0(BT_server_data, 'Ballot_Track_containers',  '.csv'))
+# write_csv(Ballot_Track_connote,          paste0(BT_server_data, 'Ballot_Track_connote',     '.csv'))
+# write_csv(Ballot_Track_container_status, paste0(BT_server_data, 'Ballot_Track_status',      '.csv'))
 
 
 
@@ -1092,7 +1092,7 @@ RO_5.14_remain  <- round((1 - RO_5.14_tally/Total_Count_centres), digits = 3)
 
 
 ## Now find out which rows are in the endpoint, but not the webportal
-if(test_data == TRUE) {
+if(test_data) {
   
   ## Check the statuses
   file_list <- c('Status_notes_table',

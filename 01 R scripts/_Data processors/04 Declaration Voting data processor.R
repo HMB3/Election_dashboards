@@ -919,13 +919,13 @@ if (Postal_Votes_Available){
 #data for ROs--------------
 #write some csv files to RO source file so it can match what's shown here.
 
-if (Dec_Votes_Available){
-  setwd(server_data)
-  
-  write_csv(DecVote_master %>%
-              mutate(EventID=event_group_ID),"DecVote_Data.csv")
-  
-}
+# if (Dec_Votes_Available){
+#   setwd(server_data)
+#   
+#   write_csv(DecVote_master %>%
+#               mutate(EventID=event_group_ID),"DecVote_Data.csv")
+#   
+# }
 
 
 

@@ -97,8 +97,9 @@ options(dplyr.summarise.inform = FALSE, scipen = 999)
 
 
 ## Set each dashboard to run or not
+load('./01 R scripts/Dashboard_BT_data.RData')
 BallotTrack   <- TRUE
-
+test_data     <- FALSE
 
 
 
@@ -117,7 +118,6 @@ if (BallotTrack) {
   
   # load('./01 R scripts/Dashboard_BT_data.RData')
   # load('./01 R scripts/Venues_Dashboard_data.RData')
-  load('./01 R scripts/Dashboard_BT_data.RData')
   # load('./01 R scripts/Dashboard_staffing_data.RData')
   # source('./01 R scripts/_Data processors/08 Ballot Track data processor.R')
   source('./01 R scripts/_Data processors/08 Ballot Track data processor.R')
@@ -125,18 +125,18 @@ if (BallotTrack) {
   ## Knit the sub-page to the sub-directory
   if(knit_rmd) {
     
-    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/08 Ballot Track Sub.Rmd', 
+    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/Ballot_Tracking_Sub.Rmd', 
                       output_dir = './docs/')
     
-    rmarkdown::render('./01 R scripts/_RMD files/Sub pages/08 Ballot Track Sub.Rmd', 
+    rmarkdown::render('./01 R scripts/_RMD files/Ballot_Tracking.Rmd', 
                       output_dir = './docs/')
     
     # rmarkdown::render('./01 R scripts/_RMD files/Sub pages/01 Venues and procurement Sub.Rmd', 
     #                   output_dir = './docs/')
     
     ## Knit the main page to the index directory
-    rmarkdown::render('./01 R scripts/_RMD files/02_03 EOI summary.Rmd', 
-                      output_dir = './docs/')
+    # rmarkdown::render('./01 R scripts/_RMD files/02_03 EOI summary.Rmd', 
+    #                   output_dir = './docs/')
     
     # rmarkdown::render('./01 R scripts/_RMD files/01 Venues and procurement.Rmd', 
     #                   output_dir = './docs/')
