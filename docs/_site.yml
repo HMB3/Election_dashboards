@@ -3,7 +3,7 @@ name: "LG21 Local Government Election Dashboards"
 
 
 
-output_dir: 'doc'
+output_dir: 'docs'
   html_document:
     theme: lumen
     highlight: tango
