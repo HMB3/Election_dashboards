@@ -1,397 +1,184 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
-
-
-
-<title>Welcome!</title>
-
-<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
+<title>Election Dashboards</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Helvetica", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
 }
-h1.title {
-  font-size: 38px;
+
+h1{
+font-weight: bold;
 }
-h2 {
-  font-size: 30px;
+
+h2{
+font-weight: bold;
 }
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
+
+
 </style>
-
-<link rel="stylesheet" href="styles.css" type="text/css" />
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-</style>
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 54px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
-}
-.section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
-}
-.section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
-}
-.section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
-}
-.section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
-}
-.section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
-}
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.parent().addClass('active');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-
-
-
-
 </head>
-
 <body>
 
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-theme-l1">NSW Local Council Elections 2021</a>
+<!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Values</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>-->
+  </div>
+</div>
 
-<div class="container-fluid main-container">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html"><img id="logo" style="width: 200px;" src="logo.svg" /></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="index.html">Local Government Election Dashboards</a>
-</li>
-<li class="dropdown-header"></li>
-<li class="dropdown-header"></li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Election Processes
-     
-    <span class="caret"></span>
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
   </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="index.html">Home</a>
-    </li>
-    <li>
-      <a href="Candidate_Nominations_Sub.html">Candidate Nominations</a>
-    </li>
-    <li>
-      <a href="Declaration_Voting_Sub.html">Declaration Voting</a>
-    </li>
-    <li>
-      <a href="Ballot_Tracking_Sub.html">Ballot Tracking</a>
-    </li>
-    <li>
-      <a href="Vote_Counting_sub.html">Vote Counting</a>
-    </li>
-    <li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
+  <h2 class="w3-bar-item"><b>Election Processes</b></h2>
+  <a class="w3-bar-item w3-button w3-hover-black" href="Candidate_Nominations_Sub.html">Candidate Nominations</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="Declaration_Voting_Sub.html">Declaration Voting</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="Ballot_Tracking_Sub.html">Ballot Tracking</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="Vote_Counting_Sub.html">Vote Counting</a>
+</nav>
 
-<div class="fluid-row" id="header">
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
 
 
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h2 class="w3-text-grey">Council Election Dash boards</h2>
+      <p>The dashboards presented here are a sample of those that were used to help plan for, and run, the NSW Local Council 
+		Elections held on December 4th, 2021. Council Elections in NSW are a complex logistical exercise, involving the 
+		coordination of >25k staff across > 2.5k venues, and take a full year to plan and execute. The Data Analysis team
+		of the NSW Electoral Commission aids these processes by providing information summaries from different
+		sources (i.e. SQL databases and associated reports) using timely, efficient and automated processes (i.e. code
+		repositories to access databases routinely, process data into information and serve the summaries to business 
+		users at regular intervals). The Data team designed a series of dashboards in consultation with subject matter
+		experts, to show in real time if various electoral processes were on track. This site shows a sample of the 
+		dashboards that were designed for these processes.</p>
+    </div>
+    <div class="w3-third w3-container">
+      <!-- <p class="w3-border w3-padding-large w3-padding-32 w3-center"></p> -->
+      <!-- <p class="w3-border w3-padding-large w3-padding-64 w3-center"></p> -->
+    <!-- </div> -->
+  </div>
 
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h2 class="w3-text-orange">Candidte Nominations</h2>
+      <p>The nominations process involves manual vetting of applications from major parties, minor parties and independents.
+         To summarise if the number of expected applications are being received and processed according to the tight schedule
+         required by legislation, several bespoke databases must be accessed, and the information synthesized across many
+         individual tables covering different topics. Approximately 3k nominations were received for LG21.</p>
+    </div>
+    <div class="w3-third w3-container">
+      <!-- <p class="w3-border w3-padding-large w3-padding-32 w3-center"></p> -->
+      <!-- <p class="w3-border w3-padding-large w3-padding-64 w3-center"></p> -->
+    <!-- </div> -->
+  </div>
 
-</div>
+  <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h2 class="w3-text-teal">Declaration Voting</h2>
+      <p>Under NSW legislation, several vote types are recognized as valid votes in either Council or general state elections.
+         Declaration votes are one such vote type, and are issued for various reasons (e.g. people who are voting outside their 
+         elecorate, are not on the roll, or may have already voted), and require extra manual processing. To summarise if the DecVotes 
+         processing is on track, several bespoke databases must again be accessed, and the information synthesized across many 
+         individual tables relating to vote type..</p>
+    </div>
+    <div class="w3-third w3-container">
+      <!-- <p class="w3-border w3-padding-large w3-padding-32 w3-center"></p> -->
+      <!-- <p class="w3-border w3-padding-large w3-padding-64 w3-center"></p> -->
+    <!-- </div> -->
+  </div>
 
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-brown">Ballot Tracking</h1>
+      <p>Every ballot paper in a NSW election must be rigorously accounted for. Ballots papers are stored in cartons of various sizes 
+        (several hundred to several thousand - and every carton has a bar code, that is scanned through several logistical stages of 
+        the delivery process (from the printer to final vote counting). The dashboard interfaced with 3rd party software and EC databases 
+        to track if the number of expected cartons (which is know at the start of the election) was being scanned in and out at each stage.</p>
+    </div>
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h2 class="w3-text-purple">Vote Counting</h2>
+      <p>The Vote counting process has been rigorously developed over many years according to tight protocols to control for human error
+         and logistical bottlenecks. All cartons of ballot papers are delivered from regional offices (e.g. Parramatta) to central vote 
+         counting locations at Sydney and Newcastle. The vote counting is then split into two processes - batching and data entry..</p>
+    </div>	
+	
+    <div class="w3-third w3-container">
+      <!-- <p class="w3-border w3-padding-large w3-padding-32 w3-center"></p> -->
+      <!-- <p class="w3-border w3-padding-large w3-padding-64 w3-center"></p> -->
+    </div>
+  </div>
 
-<style>
+  <!-- Pagination -->
+<!--   <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a class="w3-button w3-black" href="#">1</a>
+      <a class="w3-button w3-hover-black" href="#">2</a>
+      <a class="w3-button w3-hover-black" href="#">3</a>
+      <a class="w3-button w3-hover-black" href="#">4</a>
+      <a class="w3-button w3-hover-black" href="#">5</a>
+      <a class="w3-button w3-hover-black" href="#">»</a>
+    </div>
+  </div> -->
 
-.column-left{
-  float: left;
-  width: 35%;
-  text-align: left;
-}
+<!--   <footer id="myFooter">
+    <div class="w3-container w3-theme-l2 w3-padding-32">
+      <h4>Footer</h4>
+    </div>
 
-.column-right{
-  float: right;
-  width: 65%;
-  text-align: justify;
-}
+    <div class="w3-container w3-theme-l1">
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  </footer> -->
 
-}
-
-</style>
-<p><br />
-</p>
-<div id="Local Council Elecion Dashboards" class="section level1">
-<div class="column-left">
-<p><br />
-</p>
-<p><a href="Candidate_Nominations_Sub.html" >1. Candidate Nominations </a></p>
-<p><a href="Declaration_Voting_Sub.html"    >2. Declaration Voting    </a></p>
-<p><a href="Ballot_Tracking_Sub.html"       >3. Ballot Tracking       </a></p>
-<p><a href="Vote_Counting_Sub.html"         >4. Vote Counting         </a></p>
-</div>
-<div class="column-right">
-<p><br />
-</p>
-<p>The dashboards presented here are a sample of those that were used to help plan for, and run, the NSW Local Council Elections held on December 4th, 2021. Council Elections in NSW are a complex logistical exercise, involving the coordination of >25k staff across > 2.5k venues, and take a full year to plan and execute. The Data Analysis team of the NSW Electoral Commission aids these processes by providing information summaries from different sources (i.e. SQL databases and associated reports) using timely, efficient and automated processes (i.e. code repositories to access databases routinely, process data into information and serve the summaries to business users at regular intervals). The Data team designed a series of dashboards in consultation with subject matter experts, to show in real time if various electoral processes were on track. This site shows a sample of these dashboards.</p>
-</div>
-</div>
-
-
-
-
+<!-- END MAIN -->
 </div>
 
 <script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
 
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
 
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
 </script>
 
 </body>
