@@ -27,9 +27,9 @@ navbar:
         - text: Candidate Nominations
           href: Candidate_Nominations_Sub.html
         - text: Declaration Voting
-          href: Declaration Voting_Sub.html
+          href: Declaration_Voting_Sub.html
         - text: Ballot Tracking
-          href: 08-Ballot-Track-Sub.html
+          href: Ballot_Tracking_Sub.html
         - text: Vote Counting
-          href: 11-Count-centre-Sub.html
+          href: Vote_Counting_Sub.html
 
