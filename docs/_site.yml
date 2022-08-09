@@ -31,5 +31,5 @@ output_dir: 'docs'
         # - text: Ballot Tracking
           # href: Ballot_Tracking_Sub.html
         # - text: Vote Counting
-          # href: Vote_Counting_Sub.html
+          # href: Vote_Counting_sub.html
 
